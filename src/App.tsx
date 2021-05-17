@@ -1,8 +1,10 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import {healthcheck} from './services/auth';
 
 function App() {
+  healthcheck();
   return (
     <div className="App">
       <header className="App-header">
