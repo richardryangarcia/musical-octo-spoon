@@ -1,14 +1,14 @@
-import { AllActions } from '../actions';
-import { InitialState } from '../state';
 import { ActionsObservable, Epic } from "redux-observable";
-import { switchMap, catchError, mergeMap, filter } from "rxjs/operators";
-import { UserActionTypes, userDetailsSuccess, userDetailsFailure } from './actions';
-import { isOfType } from "typesafe-actions";
 import { of, from, merge } from "rxjs";
+import { switchMap, catchError, mergeMap, filter } from "rxjs/operators";
+import { isOfType } from "typesafe-actions";
+import { AllActions, InitialStateType } from '../index';
+import { UserActionTypes, userDetailsSuccess, userDetailsFailure } from './actions';
 import { getUserDetails } from '../../services/user';
+import { signInFailure, signInSuccess } from '../auth/actions';
 
-export const userDetailsEpic: Epic<AllActions, AllActions, InitialState> = (
-    action$: ActionsObservable<AllActions>
+export const userDetailsEpic: Epic<AllActions, AllActions, InitialStateType> = (
+    action$
   ) =>
     action$.pipe(
       filter(isOfType(UserActionTypes.USER_DETAILS)),
@@ -16,14 +16,16 @@ export const userDetailsEpic: Epic<AllActions, AllActions, InitialState> = (
         return from(getUserDetails()).pipe(
           mergeMap((data) => [
             userDetailsSuccess(data),
+            signInSuccess()
           ]),
           catchError((error) =>
             merge(
-              of(userDetailsFailure(error))
+              of(userDetailsFailure(error)),
+              of(signInFailure(error))
             )
           )
         );
       })
     );
 
-  export const UserEpics = [userDetailsEpic]
+export const UserEpics = [userDetailsEpic]

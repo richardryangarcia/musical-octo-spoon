@@ -3,30 +3,81 @@ import {
     createStore,
     applyMiddleware,
     Store,
-    Middleware,
-} from "redux";
-import { createEpicMiddleware, EpicMiddleware } from "redux-observable";
-import { InitialState, initialState } from './state';
-import { epics } from './epics';
-import { reducers } from './reducers';
-import { AllActions } from './actions';
+    combineReducers,
+  } from "redux";
+  import { createEpicMiddleware, combineEpics } from "redux-observable";
+  
+  import { AuthEpics } from './auth/epics';
+  import { BookingEpics } from './booking/epics';
+  import { BuildingEpics } from './building/epics';
+  import { UserEpics } from './user/epics';
 
-declare global {
-    interface Window {
-    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: Function;
-    }
+  import { AuthActions } from './auth/actions';
+  import { BookingActions } from './booking/actions';
+  import { BuildingActions } from './building/actions';
+  import { UserActions } from './user/actions';
+
+  import { AuthInitialState, authInitialState, authReducer } from './auth/reducers';
+  import { BookingInitialState, bookingInitialState, bookingReducer } from './booking/reducers';
+  import { BuildingInitialState, buildingInitialState, buildingReducer } from './building/reducers';
+  import { UserInitialState, userInitialState, userReducer } from './user/reducers';
+
+
+  export type AllActions = 
+    | AuthActions
+    | BookingActions
+    | BuildingActions
+    | UserActions
+
+  export type InitialStateType = {
+    auth: AuthInitialState,
+    booking: BookingInitialState,
+    building: BuildingInitialState,
+    user: UserInitialState
 }
 
-const composeEnhancers = (window && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
-
-const epicMiddleware: EpicMiddleware<AllActions, AllActions, InitialState> = createEpicMiddleware<AllActions, AllActions, InitialState>();
-
-const middlewares: Middleware[] = [epicMiddleware];
-
-const enhancer = composeEnhancers(applyMiddleware(...middlewares));
-
-const store: Store = createStore(reducers, initialState, enhancer);
-
-epicMiddleware.run(epics);
-
-export default store;
+const initialState: InitialStateType = {
+    auth: authInitialState,
+    booking: bookingInitialState,
+    building: buildingInitialState,
+    user: userInitialState
+}
+  
+const reducers = combineReducers({
+    user: userReducer,
+    auth: authReducer,
+    booking: bookingReducer,
+    building: buildingReducer,
+  });
+  
+  const epics = combineEpics(
+    // ...AuthEpics,
+    // ...BookingEpics,
+    // ...BuildingEpics,
+    ...UserEpics,
+  )
+  
+  ///// setup store //////
+  declare global {
+    interface Window {
+      __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: Function;
+    }
+  }
+  const composeEnhancers =
+    (window && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
+  
+  const epicMiddleware = createEpicMiddleware<
+    AllActions,
+    AllActions,
+    InitialStateType
+  >();
+  
+  const middlewares = [epicMiddleware];
+  
+  const enhancer = composeEnhancers(applyMiddleware(...middlewares));
+  
+  const store: Store = createStore(reducers, initialState, enhancer);
+  
+  // epicMiddleware.run(epics);
+  
+  export default store;

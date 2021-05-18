@@ -14,17 +14,17 @@ export type CreateBookingDto = {
     stopTime: Date;
 }
 
-export async function getBookingByUser(): Promise<Booking[]> {
+export async function getBookingsByUser(): Promise<Booking[]> {
     const response = await axiosConfig.get('/bookings');
     return response.data
 }
 
-export async function getBookingByRoom(roomId: number, date: Date): Promise<Booking[]> {
+export async function getBookingsByRoom(roomId: number, date: Date): Promise<Booking[]> {
     const response = await axiosConfig.get(`/bookings/${roomId}`, { params: { date } });
     return response.data
 }
 
-export async function deleteBookings(bookingId: string): Promise<void> {
+export async function deleteBooking(bookingId: number): Promise<void> {
     const response = await axiosConfig.delete(`/bookings/${bookingId}`);
     return response.data
 }

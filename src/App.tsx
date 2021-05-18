@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useEffect, useState} from 'react';
+import { useDispatch, useSelector } from "react-redux";
 import './App.css';
+import { InitialStateType } from './store/index';
+import { AuthInitialState } from './store/auth/reducers';
 import {healthcheck} from './services/auth';
+import { userDetails } from './store/user/actions';
 
-function App() {
-  healthcheck();
+export const App: React.FC = ({children}) => {
+  const auth = useSelector<InitialStateType, AuthInitialState>(
+    (state) => state.auth
+  );
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // dispatch(userDetails())
+  }, [dispatch])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="App-header">
+        {!auth || auth.loading && (
+          <div>spinner</div>
+        )}
+
+        {auth && !auth.loading && auth.error && (
+          <div>Error</div>
+        )}
+
+        {auth && !auth.loading && !auth.authenticated && (
+          <div>Authenticate</div>
+        )}
+
+        {auth && !auth.loading && auth.authenticated && (
+          <div>{children}</div>
+        )}
+      </div>
     </div>
   );
 }

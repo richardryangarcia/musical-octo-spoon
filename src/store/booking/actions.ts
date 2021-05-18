@@ -32,6 +32,7 @@ interface RoomBookings extends Action {
     type: BookingActionTypes.ROOM_BOOKINGS,
     payload: {
         roomId: number;
+        date: Date;
     }
 }
 
@@ -76,10 +77,10 @@ export const userBooking = (): UserBookings => {
     }
 }
 
-export const roomBooking = (roomId: number): RoomBookings => {
+export const roomBooking = (roomId: number, date: Date): RoomBookings => {
     return {
         type: BookingActionTypes.ROOM_BOOKINGS,
-        payload: { roomId }     
+        payload: { roomId, date }     
     }
 }
 

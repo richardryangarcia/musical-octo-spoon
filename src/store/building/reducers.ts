@@ -10,7 +10,7 @@ export interface BuildingInitialState {
 }
 
 export const buildingInitialState: BuildingInitialState = {
-  loading: true,
+  loading: false,
   rooms: undefined,
   events: undefined,
   error: undefined,

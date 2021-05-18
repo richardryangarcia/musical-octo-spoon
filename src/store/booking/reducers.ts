@@ -14,7 +14,7 @@ export interface BookingInitialState {
 }
 
 export const bookingInitialState: BookingInitialState = {
-  loading: true,
+  loading: false,
   userBookings: [],
   roomBookings: {},
   error: undefined,

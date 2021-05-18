@@ -1,4 +1,4 @@
-import { Action } from "redux";
+import { Action, ActionCreator } from "redux";
 import { UserDetailsDto } from '../../services/user';
 
 export enum UserActionTypes {
@@ -11,7 +11,7 @@ interface UserDetails extends Action {
     type: UserActionTypes.USER_DETAILS
 }
 
-export const userDetails = (): UserDetails => {
+export const userDetails: ActionCreator<UserDetails> = () => {
     return {
         type: UserActionTypes.USER_DETAILS
     }
@@ -24,7 +24,7 @@ interface UserDetailsFailure extends Action {
     }
 }
 
-export const userDetailsFailure = (error: Error): UserDetailsFailure => {
+export const userDetailsFailure: ActionCreator<UserDetailsFailure>  = (error: Error) => {
     return {
         type: UserActionTypes.USER_DETAILS_FAILURE,
         payload: { error }
@@ -36,7 +36,7 @@ interface UserDetailsSuccess extends Action {
     payload: UserDetailsDto
 }
 
-export const userDetailsSuccess = (userDetailsDto: UserDetailsDto): UserDetailsSuccess => {
+export const userDetailsSuccess: ActionCreator<UserDetailsSuccess> = (userDetailsDto: UserDetailsDto) => {
     return {
         type: UserActionTypes.USER_DETAILS_SUCCESS,
         payload: userDetailsDto
