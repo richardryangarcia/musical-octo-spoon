@@ -1,17 +1,21 @@
 import axiosConfig from '../configs/axiosConfig';
 
 export async function getBookingByUser(): Promise<any> {
-    return await axiosConfig.get('/bookings');
+    const response = await axiosConfig.get('/bookings');
+    return response.data
 }
 
 export async function getBookingByRoom(roomId: number, date: Date): Promise<any> {
-    return await axiosConfig.get(`/bookings/${roomId}`, { params: { date } });
+    const response = await axiosConfig.get(`/bookings/${roomId}`, { params: { date } });
+    return response.data
 }
 
 export async function deleteBookings(bookingId: string): Promise<any> {
-    return await axiosConfig.delete(`/bookings/${bookingId}`);
+    const response = await axiosConfig.delete(`/bookings/${bookingId}`);
+    return response.data
 }
 
 export async function createBooking(roomId: string, startTime: Date, stopTime: Date): Promise<any> {
-    return await axiosConfig.post('/bookings',{roomId, startTime, stopTime});
+    const response = await axiosConfig.post('/bookings',{roomId, startTime, stopTime});
+    return response.data
 }

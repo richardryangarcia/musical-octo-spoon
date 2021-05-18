@@ -6,13 +6,16 @@ export type AuthenticateDto = {
 }
 
 export async function healthcheck(): Promise<void> {
-    return await axiosConfig.get('')
+    const response =  await axiosConfig.get('')
+    return response.data
 }
 
 export async function signUp(authentiateDto: AuthenticateDto): Promise<void> {
-    return await axiosConfig.post('/users/signup', authentiateDto)
+    const response = await axiosConfig.post('/users/signup', authentiateDto)
+    return response.data
 }
 
 export async function signIn(authentiateDto: AuthenticateDto): Promise<void> {
-    return await axiosConfig.post('/users/signin', authentiateDto)
+    const response =  await axiosConfig.post('/users/signin', authentiateDto)
+    return response.data
 }

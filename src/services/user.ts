@@ -25,5 +25,6 @@ export type UserDetailsDto = {
 }
 
 export async function getUserDetails(): Promise<UserDetailsDto> {
-    return await axiosConfig.get('/users')
+    const response = await axiosConfig.get('/users')
+    return response.data
 }
