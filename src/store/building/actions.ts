@@ -8,12 +8,16 @@ export enum BuildingActionTypes {
 }
 
 interface BuildingDetails extends Action {
-    type: BuildingActionTypes.BUILDING_DETAILS
+    type: BuildingActionTypes.BUILDING_DETAILS,
+    payload: {
+        buildingId: number;
+    }
 }
 
-export const buildingDetails = (): BuildingDetails => {
+export const buildingDetails = (buildingId: number): BuildingDetails => {
     return {
-        type: BuildingActionTypes.BUILDING_DETAILS
+        type: BuildingActionTypes.BUILDING_DETAILS,
+        payload: { buildingId }
     }
 }
 

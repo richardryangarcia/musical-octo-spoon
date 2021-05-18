@@ -10,7 +10,7 @@ export enum AuthActionTypes {
     SIGN_IN_FAILURE = '@@auth/SIGN_IN_FAILURE',
 }
 
-interface SignUp extends Action {
+export interface SignUp extends Action {
     type: AuthActionTypes.SIGN_UP,
     payload: AuthenticateDto
 }
