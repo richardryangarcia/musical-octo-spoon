@@ -15,10 +15,14 @@ export const Header: React.FC<HeaderProps> = ({label}) => {
                 {subText}
             </p>
             <p>
-                {label === 'My Bookings' && (
-                <LinkContainer to='/schedule-booking'>
+                {label === 'My Bookings' ? (
+                <LinkContainer to='/schedule-bookings'>
                     <Button variant="primary" >Reserve a room</Button>
-                </LinkContainer>
+                </LinkContainer> 
+                ) : (
+                <LinkContainer to='/my-bookings'>
+                    <Button variant="primary" >View Reservations</Button>
+                </LinkContainer> 
                 )}
             </p>
         </Jumbotron>
