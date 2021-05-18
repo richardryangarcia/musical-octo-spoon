@@ -5,6 +5,8 @@ import { InitialStateType } from './store/index';
 import { AuthInitialState } from './store/auth/reducers';
 import {healthcheck} from './services/auth';
 import { userDetails } from './store/user/actions';
+import {Spinner, Card, Alert} from 'react-bootstrap';
+import {Authentication} from './components/Authentication';
 
 export const App: React.FC = ({children}) => {
   const auth = useSelector<InitialStateType, AuthInitialState>(
@@ -20,15 +22,17 @@ export const App: React.FC = ({children}) => {
     <div className="App">
       <div className="App-header">
         {!auth || auth.loading && (
-          <div>spinner</div>
+          <Spinner animation="grow" variant="info" />
         )}
 
         {auth && !auth.loading && auth.error && (
-          <div>Error</div>
+            <Alert variant='danger'>
+              Error: {auth.error}
+            </Alert>
         )}
 
         {auth && !auth.loading && !auth.authenticated && (
-          <div>Authenticate</div>
+          <Authentication />
         )}
 
         {auth && !auth.loading && auth.authenticated && (
