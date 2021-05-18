@@ -1,7 +1,7 @@
 import axiosConfig from '../configs/axiosConfig';
 
 
-type Role = {
+export type Role = {
     id: number;
     name: string;
     roles: Role[];

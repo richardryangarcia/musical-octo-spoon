@@ -3,6 +3,7 @@ import { User } from "../../services/user";
 import { UserActions, UserActionTypes } from "./actions";
 import { Building } from '../../services/user';
 
+
 export interface UserInitialState {
   loading: boolean;
   details?: User;
