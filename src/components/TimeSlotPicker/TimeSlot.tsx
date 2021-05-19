@@ -1,6 +1,7 @@
 import React from 'react';
 import { Room } from '../../services/building'
 import { Card, Button } from 'react-bootstrap';
+import { TimeSlot } from '../../utils/dateFormat';
 
 type TimeSlotCardProps = {
     setSelectedStartTime: (startTime: Date) => void;

@@ -18,6 +18,50 @@ export const dateNotInThePast = (date: Date, dateNow: Date) => {
   return dateFormatted >= dateNowFormatted
 }
 
-export const areTheSameDay = (dateString:Date, dateString2: Date) => {
-  return formatShortDate(new Date(dateString)) === formatShortDate(new Date(dateString2))
+export const areTheSameDay = (date:Date, date2: Date) => {
+  return formatShortDate(new Date(date)) === formatShortDate(new Date(date2))
+}
+
+export type TimeSlot = {
+  displayStartTime: string;
+  actualStartTime: Date;
+  actualEndTime: Date;
+}
+
+export const getTimeSlots = (date:Date, openTime: string, closeTime: string): TimeSlot[] => {
+  let timeSlots: TimeSlot[] = []
+  if (!openTime || !closeTime) {
+    return timeSlots;
+  }
+
+  let startHour = parseInt(openTime.split(":")[0])
+  let endHour = parseInt(closeTime.split(":")[0])
+
+  for (let i = startHour; i < endHour; i++){
+    let displayStartTime = getHourFromNum(i);
+    date.setHours(i,0o0,0o0);
+    let actualStartTime = new Date(date.getTime());
+    let actualEndTime = getActualStopDateTime(actualStartTime)
+
+    timeSlots.push({displayStartTime, actualStartTime, actualEndTime})
+    
+  }
+
+  return timeSlots
+}
+
+const getActualStopDateTime = (startTime:Date) => {
+    let copiedDate = new Date(startTime.getTime());
+    console.log(copiedDate)
+    copiedDate.setHours(copiedDate.getHours()+1);
+    copiedDate.setSeconds(copiedDate.getSeconds()-1);
+    return copiedDate;
+}
+
+const getHourFromNum = (hour: number) => {
+  let ampm = hour >= 12 ? 'pm' : 'am';
+  hour = hour % 12;
+  hour = hour ? hour : 12; // the hour '0' should be '12'
+  let strTime = hour + ' ' + ampm;
+  return strTime;
 }
