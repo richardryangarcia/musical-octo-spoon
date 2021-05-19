@@ -1,4 +1,4 @@
-import { AllActions, InitialStateType } from '../index';
+import { AllActions, InitialState } from '../index';
 import { ActionsObservable, Epic } from "redux-observable";
 import { switchMap, catchError, mergeMap, filter } from "rxjs/operators";
 import { AuthActionTypes, signUpSuccess, signUpFailure, signInFailure } from './actions';
@@ -7,7 +7,7 @@ import { of, from, merge } from "rxjs";
 import { signUp, signIn } from '../../services/auth';
 import { userDetails } from '../user/actions';
 
-export const signUpEpic: Epic<AllActions, AllActions, InitialStateType> = (
+export const signUpEpic: Epic<AllActions, AllActions, InitialState> = (
     action$: ActionsObservable<AllActions>
   ) =>
     action$.pipe(
@@ -26,7 +26,7 @@ export const signUpEpic: Epic<AllActions, AllActions, InitialStateType> = (
       })
     );
 
-export const signInEpic: Epic<AllActions, AllActions, InitialStateType> = (
+export const signInEpic: Epic<AllActions, AllActions, InitialState> = (
     action$: ActionsObservable<AllActions>
     ) =>
     action$.pipe(

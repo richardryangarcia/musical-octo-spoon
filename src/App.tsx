@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import './App.css';
-import { InitialStateType } from './store/index';
+import { InitialState } from './store';
 import { AuthInitialState } from './store/auth/reducers';
 import {healthcheck} from './services/auth';
 import { userDetails } from './store/user/actions';
@@ -9,10 +9,11 @@ import {Spinner, Card, Alert} from 'react-bootstrap';
 import {Authentication} from './components/Authentication';
 
 export const App: React.FC = ({children}) => {
-  const auth = useSelector<InitialStateType, AuthInitialState>(
+  const auth = useSelector<InitialState, AuthInitialState>(
     (state) => state.auth
   );
   const dispatch = useDispatch();
+
 
   useEffect(() => {
     // dispatch(userDetails())

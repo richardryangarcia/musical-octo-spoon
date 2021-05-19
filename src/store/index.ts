@@ -29,21 +29,21 @@ import {
     | BuildingActions
     | UserActions
 
-  export type InitialStateType = {
+  export type InitialState = {
     auth: AuthInitialState,
     booking: BookingInitialState,
     building: BuildingInitialState,
     user: UserInitialState
 }
 
-const initialState: InitialStateType = {
+const initialState: InitialState = {
     auth: authInitialState,
     booking: bookingInitialState,
     building: buildingInitialState,
     user: userInitialState
 }
   
-const reducers = combineReducers({
+export const reducers = combineReducers({
     user: userReducer,
     auth: authReducer,
     booking: bookingReducer,
@@ -51,9 +51,9 @@ const reducers = combineReducers({
   });
   
   const epics = combineEpics(
-    // ...AuthEpics,
-    // ...BookingEpics,
-    // ...BuildingEpics,
+    ...AuthEpics,
+    ...BookingEpics,
+    ...BuildingEpics,
     ...UserEpics,
   )
   
@@ -69,7 +69,7 @@ const reducers = combineReducers({
   const epicMiddleware = createEpicMiddleware<
     AllActions,
     AllActions,
-    InitialStateType
+    InitialState
   >();
   
   const middlewares = [epicMiddleware];
@@ -78,6 +78,6 @@ const reducers = combineReducers({
   
   const store: Store = createStore(reducers, initialState, enhancer);
   
-  // epicMiddleware.run(epics);
+  epicMiddleware.run(epics);
   
   export default store;

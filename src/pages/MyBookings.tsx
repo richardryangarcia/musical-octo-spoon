@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from "react-redux";
-import { InitialStateType } from '../store/index';
+import { InitialState } from '../store';
 import { BookingInitialState } from '../store/booking/reducers'
 import { UserInitialState } from '../store/user/reducers'
 import { Container } from 'react-bootstrap';
@@ -12,11 +12,11 @@ import { Header } from '../components/Jumbotron';
 type MyBookingsProps = {}
 
 export const MyBookings: React.FC<MyBookingsProps> = () => {
-    const bookings = useSelector<InitialStateType, BookingInitialState>(
+    const bookings = useSelector<InitialState, BookingInitialState>(
         (state) => state.auth
       );
 
-    const user = useSelector<InitialStateType, UserInitialState>(
+    const user = useSelector<InitialState, UserInitialState>(
         (state) => state.auth
     );
 

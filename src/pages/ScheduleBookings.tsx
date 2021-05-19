@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import { useDispatch, useSelector } from "react-redux";
 import { Header } from '../components/Jumbotron';
 import { Container } from 'react-bootstrap';
 import { Building } from '../services/user';
@@ -6,10 +7,22 @@ import { BuildingPicker } from '../components/BuildingPicker';
 import { DateSelector } from '../components/DatePicker';
 import { dateNotInThePast} from '../utils/dateFormat';
 import "react-datepicker/dist/react-datepicker.css";
+import {InitialState} from '../store/index';
+import { userDetails} from '../store/user/actions';
 
 type ScheduleBookingsProps = {}
 
 export const ScheduleBookings: React.FC<ScheduleBookingsProps> = () => {
+    const userState = useSelector<InitialState, InitialState>(
+        (state) => state
+      );
+
+    //   console.log('id' , userState.id)
+    const dispatch = useDispatch();
+    useEffect(() => {
+        // dispatch(userDetails())
+    }, [])
+
     const timeNow = new Date()
     const [selectedBuilding, setSelectedBuilding] = useState<Building>();
     const [selectedDate, setSelectedDate] = useState<Date>(timeNow);
