@@ -8,8 +8,8 @@ type RoomBookings = {
 
 export interface BookingInitialState {
   loading: boolean;
-  userBookings?: Booking[];
-  roomBookings?: RoomBookings
+  userBookings: Booking[];
+  roomBookings: RoomBookings
   error?: Error;
 }
 

@@ -1,13 +1,14 @@
 import { Action } from "redux";
-import { AuthenticateDto } from '../../services/auth';
+import { AuthenticateDto, SignInResponse } from '../../services/auth';
 
 export enum AuthActionTypes {
     SIGN_UP = '@@auth/SIGN_UP',
-    SIGN_UP_SUCCESS = '@@auth/SIGN_UP_SUCCESS',
+    DONE_LOADING = '@@auth/DONE_LOADING',
     SIGN_UP_FAILURE = '@@auth/SIGN_UP_FAILURE',
     SIGN_IN = '@@auth/SIGN_IN',
     SIGN_IN_SUCCESS = '@@auth/SIGN_IN_SUCCESS',
     SIGN_IN_FAILURE = '@@auth/SIGN_IN_FAILURE',
+    AUTHENTICATE = '@@auth/AUTHENTICATE'
 }
 
 export interface SignUp extends Action {
@@ -22,13 +23,13 @@ export const signUp = (authenticateDto: AuthenticateDto): SignUp => {
     }
 }
 
-interface SignUpSuccess extends Action {
-    type: AuthActionTypes.SIGN_UP_SUCCESS
+interface DoneLoading extends Action {
+    type: AuthActionTypes.DONE_LOADING
 }
 
-export const signUpSuccess = (): SignUpSuccess => {
+export const doneLoading = (): DoneLoading => {
     return {
-        type: AuthActionTypes.SIGN_UP_SUCCESS
+        type: AuthActionTypes.DONE_LOADING
     }
 }
 
@@ -59,12 +60,14 @@ export const signIn = (authenticateDto: AuthenticateDto): SignIn => {
 }
 
 interface SignInSuccess extends Action {
-    type: AuthActionTypes.SIGN_IN_SUCCESS
+    type: AuthActionTypes.SIGN_IN_SUCCESS,
+    payload: SignInResponse
 }
 
-export const signInSuccess = (): SignInSuccess => {
+export const signInSuccess = (response: SignInResponse): SignInSuccess => {
     return {
-        type: AuthActionTypes.SIGN_IN_SUCCESS
+        type: AuthActionTypes.SIGN_IN_SUCCESS,
+        payload: response
     }
 }
 
@@ -82,11 +85,23 @@ export const signInFailure = (error: Error): SignInFailure => {
     }
 } 
 
+interface Authenticate extends Action {
+    type: AuthActionTypes.AUTHENTICATE
+}
+
+export const authenticate = (): Authenticate => {
+    return {
+        type: AuthActionTypes.AUTHENTICATE    
+    }
+}
+
+
 
 export type AuthActions = 
     | SignUp 
-    | SignUpSuccess
+    | DoneLoading
     | SignUpFailure
     | SignIn
     | SignInSuccess
     | SignInFailure
+    | Authenticate

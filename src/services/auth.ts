@@ -5,6 +5,10 @@ export type AuthenticateDto = {
     password: string;
 }
 
+export type SignInResponse = {
+    jwt: string;
+}
+
 export async function healthcheck(): Promise<void> {
     const response =  await axiosConfig.get('')
     return response.data
@@ -15,8 +19,9 @@ export async function signUp(authentiateDto: AuthenticateDto): Promise<void> {
     return response.data
 }
 
-export async function signIn(authentiateDto: AuthenticateDto): Promise<void> {
+export async function signIn(authentiateDto: AuthenticateDto): Promise<SignInResponse> {
     const response =  await axiosConfig.post('/users/signin', authentiateDto)
+    console.log(response)
     return response.data
 }
 

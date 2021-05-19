@@ -5,7 +5,7 @@ import { isOfType } from "typesafe-actions";
 import { AllActions, InitialState } from '../index';
 import { UserActionTypes, userDetailsSuccess, userDetailsFailure } from './actions';
 import { getUserDetails } from '../../services/user';
-import { signUpSuccess, signInSuccess } from '../auth/actions';
+import { authenticate, doneLoading, signInFailure } from '../auth/actions';
 
 export const userDetailsEpic: Epic<AllActions, AllActions, InitialState> = (
     action$: ActionsObservable<AllActions>
@@ -16,12 +16,12 @@ export const userDetailsEpic: Epic<AllActions, AllActions, InitialState> = (
         return from(getUserDetails()).pipe(
           mergeMap((data) => [
             userDetailsSuccess(data),
-            signInSuccess()
+            authenticate()
           ]),
           catchError((error) =>
             merge(
-              of(userDetailsFailure(error))   ,
-              of(signUpSuccess())         
+              of(userDetailsFailure(error)),
+              of(doneLoading())
             )
           )
         );

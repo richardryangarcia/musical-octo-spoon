@@ -1,9 +1,10 @@
 import React, { ChangeEventHandler, useState } from "react";
 import { Button, Form, FormControlProps } from "react-bootstrap";
+import { AuthenticateDto } from '../../services/auth';
 
 type SignUpFormProps = {
   toggleForm: () => void;
-  dispatchSignUp: (params: any) => void;
+  dispatchSignUp: (params: AuthenticateDto) => void;
 };
 
 export const SignUpForm: React.FC<SignUpFormProps> = ({ toggleForm, dispatchSignUp }) => {

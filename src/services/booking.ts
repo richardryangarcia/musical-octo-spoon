@@ -1,4 +1,5 @@
 import axiosConfig from '../configs/axiosConfig';
+import { Room } from '../services/building';
 
 export type Booking = {
     id: number;
@@ -6,6 +7,7 @@ export type Booking = {
     userId: string;
     startTime: Date;
     stopTime: Date;
+    room: Room
 }
 
 export type CreateBookingDto = {

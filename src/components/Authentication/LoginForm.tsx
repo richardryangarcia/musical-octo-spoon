@@ -12,6 +12,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ toggleForm, dispatchLogin 
 
   const create = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    console.log(email,password)
     dispatchLogin({ email, password });
     setEmail("");
     setPassword("");

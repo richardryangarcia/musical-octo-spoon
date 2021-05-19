@@ -19,6 +19,7 @@ export const authReducer: Reducer<AuthInitialState, AuthActions> = (
 ) => {
   switch (action.type) {
     case AuthActionTypes.SIGN_IN:
+      console.log('in log in')
       return {
         ...state,
         loading: true,
@@ -33,6 +34,7 @@ export const authReducer: Reducer<AuthInitialState, AuthActions> = (
         error: undefined,
       };
     case AuthActionTypes.SIGN_IN_SUCCESS:
+      window.localStorage.setItem(`${process.env.REACT_APP_TOKEN_ID || ''}`, action.payload.jwt)
       return {
         ...state,
         loading: false,
@@ -45,7 +47,7 @@ export const authReducer: Reducer<AuthInitialState, AuthActions> = (
         authenticated: false,
         error: action.payload.error,
       };
-    case AuthActionTypes.SIGN_UP_SUCCESS:
+    case AuthActionTypes.DONE_LOADING:
       return {
         ...state,
         loading: false,
@@ -56,6 +58,13 @@ export const authReducer: Reducer<AuthInitialState, AuthActions> = (
         ...state,
         loading: false,
         error: action.payload.error,
+      };
+    case AuthActionTypes.AUTHENTICATE:
+      return {
+        ...state,
+        loading: false,
+        error: undefined,
+        authenticated: true
       };
     default: {
       return state;
