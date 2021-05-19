@@ -5,7 +5,7 @@ import {
     Store,
     combineReducers,
   } from "redux";
-  import { createEpicMiddleware, combineEpics } from "redux-observable";
+  import { createEpicMiddleware, combineEpics } from "redux-observable-es6-compat";
   
   import { AuthEpics } from './auth/epics';
   import { BookingEpics } from './booking/epics';
@@ -21,7 +21,6 @@ import {
   import { BookingInitialState, bookingInitialState, bookingReducer } from './booking/reducers';
   import { BuildingInitialState, buildingInitialState, buildingReducer } from './building/reducers';
   import { UserInitialState, userInitialState, userReducer } from './user/reducers';
-
 
   export type AllActions = 
     | AuthActions

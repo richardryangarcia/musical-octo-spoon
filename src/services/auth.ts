@@ -19,3 +19,8 @@ export async function signIn(authentiateDto: AuthenticateDto): Promise<void> {
     const response =  await axiosConfig.post('/users/signin', authentiateDto)
     return response.data
 }
+
+export async function register(authentiateDto: AuthenticateDto): Promise<void> {
+    const response = await axiosConfig.post('/users/signup', authentiateDto)
+    return response.data
+}

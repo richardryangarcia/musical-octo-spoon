@@ -5,10 +5,10 @@ import { isOfType } from "typesafe-actions";
 import { AllActions, InitialState } from '../index';
 import { UserActionTypes, userDetailsSuccess, userDetailsFailure } from './actions';
 import { getUserDetails } from '../../services/user';
-import { signInFailure, signInSuccess } from '../auth/actions';
+import { signUpSuccess, signInSuccess } from '../auth/actions';
 
-export const userDetailsEpic: Epic = (
-    action$
+export const userDetailsEpic: Epic<AllActions, AllActions, InitialState> = (
+    action$: ActionsObservable<AllActions>
   ) =>
     action$.pipe(
       filter(isOfType(UserActionTypes.USER_DETAILS)),
@@ -20,8 +20,8 @@ export const userDetailsEpic: Epic = (
           ]),
           catchError((error) =>
             merge(
-              of(userDetailsFailure(error)),
-              of(signInFailure(error))
+              of(userDetailsFailure(error))   ,
+              of(signUpSuccess())         
             )
           )
         );

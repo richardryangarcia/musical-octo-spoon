@@ -16,12 +16,12 @@ export const App: React.FC = ({children}) => {
 
 
   useEffect(() => {
-    // dispatch(userDetails())
+    dispatch(userDetails())
   }, [dispatch])
 
   return (
     <div className="App">
-      {/* <div className="App-header">
+      <div className="App-header">
         {!auth || auth.loading && (
           <Spinner animation="grow" variant="info" />
         )}
@@ -37,9 +37,9 @@ export const App: React.FC = ({children}) => {
         )}
       </div>
 
-        {auth && !auth.loading && auth.authenticated && ( */}
+        {auth && !auth.loading && auth.authenticated && (
           <div>{children}</div>
-        {/* )} */}
+        )}
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import { AllActions, InitialState } from '../index';
 import { ActionsObservable, Epic } from "redux-observable";
 import { switchMap, catchError, mergeMap, filter } from "rxjs/operators";
-import { AuthActionTypes, signUpSuccess, signUpFailure, signInFailure } from './actions';
+import { AuthActionTypes, signUpSuccess,signInSuccess, signUpFailure, signInFailure } from './actions';
 import { isOfType } from "typesafe-actions";
 import { of, from, merge } from "rxjs";
 import { signUp, signIn } from '../../services/auth';
@@ -34,7 +34,7 @@ export const signInEpic: Epic<AllActions, AllActions, InitialState> = (
         switchMap((action) => {
         return from(signIn(action.payload)).pipe(
             mergeMap(() => [
-                signUpSuccess(),
+                signInSuccess(),
                 userDetails()
             ]),
             catchError((error) =>
