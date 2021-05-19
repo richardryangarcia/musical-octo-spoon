@@ -15,6 +15,7 @@ export async function healthcheck(): Promise<void> {
 }
 
 export async function signUp(authentiateDto: AuthenticateDto): Promise<void> {
+    console.log('itss wroking')
     const response = await axiosConfig.post('/users/signup', authentiateDto)
     return response.data
 }

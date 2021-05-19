@@ -1,25 +1,46 @@
 import React from 'react';
+import {Button} from 'react-bootstrap';
 import {TimeSlotCard} from './TimeSlotCard';
 import {Room, Hour, Event} from '../../services/building'
-import { areTheSameDay, getTimeSlots, getHourFromNum } from '../../utils/dateFormat';
+import { areTheSameDay, getTimeSlots, getHourFromNum, formatDateTime} from '../../utils/dateFormat';
+import { Booking } from '../../services/booking'
+
 
 type TimeSlotPickerProps = {
-    room: Room;
+    selectedRoom: Room;
     hours: Hour[];
     events: Event[];
     setSelectedStartTime: (date: Date) => void;
-    setSelectedStopTime: (date: Date) => void;    
+    setSelectedStopTime: (date: Date) => void;  
+    resetForm: () => void;
+    saveBooking: () => void;    
+    selectedStopTime: Date | undefined;
     selectedDate: Date;
     selectedStartTime: Date | undefined;
+    bookings: Booking[]
+    isSlotBooked: (start:string, stop: string) => boolean
 }
 
-export const TimeSlotPicker: React.FC<TimeSlotPickerProps> = ({room, hours, setSelectedStartTime, setSelectedStopTime, events, selectedDate, selectedStartTime}) => {
+export const TimeSlotPicker: React.FC<TimeSlotPickerProps> = ({
+    bookings, 
+    selectedRoom, 
+    hours, 
+    setSelectedStartTime, 
+    setSelectedStopTime, 
+    events, 
+    selectedDate, 
+    selectedStartTime, 
+    resetForm, 
+    saveBooking, 
+    selectedStopTime, 
+    isSlotBooked
+}) => {
     const headerLabel = selectedStartTime ? `Time Slot: ${getHourFromNum(selectedStartTime.getHours())}` : "Choose Time Slot"
     const labelColor = selectedStartTime ? 'Green' : ""
     let allowedRoles: number[] = events.filter((e) => {
         return areTheSameDay(e.eventDate, selectedDate)
     }).map(event => event.guestRoleId);
-    allowedRoles.push(room.primaryRoleId)
+    allowedRoles.push(selectedRoom.primaryRoleId)
 
     let dayOfWeek = hours.find(hour => hour.dayOfWeek === selectedDate.getDay())
     let timeSlots;
@@ -29,19 +50,34 @@ export const TimeSlotPicker: React.FC<TimeSlotPickerProps> = ({room, hours, setS
     
     return (
         <div>
-            <div style={{textAlign: 'left', color: `${labelColor}`}}>
+            <div style={{textAlign: 'left', color: labelColor}}>
                 <h3>{headerLabel}</h3>
             </div>
+
+            {selectedRoom && selectedStartTime && selectedStopTime && (
+                    <div style={{marginBottom: '15px'}}>
+                        <Button variant="light" style={{marginRight: '10px'}} onClick={() => resetForm()}>Cancel</Button>
+                        <Button variant="primary" onClick={() => saveBooking()}>Save</Button>
+                    </div>
+                )}
 
             {(dayOfWeek?.openTime === null || dayOfWeek?.closeTime == null) && (
                 <div style={{color: 'red'}}>Office Building closed on this day, try a different date</div>
             )}
 
-            {!selectedStartTime && timeSlots && (<div>
+            { timeSlots && (<div>
                 {  timeSlots.map((timeSlot) => {
-                    return <TimeSlotCard timeSlot={timeSlot} setSelectedStartTime={setSelectedStartTime} setSelectedStopTime={setSelectedStopTime} />
+                    const formattedStart = formatDateTime(timeSlot.actualStartTime)
+                    const formattedStop = formatDateTime(timeSlot.actualEndTime)
+                    const booked = isSlotBooked(formattedStart, formattedStop)
+
+                    return <TimeSlotCard booked={booked} bookings={bookings} timeSlot={timeSlot} setSelectedStartTime={setSelectedStartTime} setSelectedStopTime={setSelectedStopTime} />
                 })}
             </div>)}
+
+            {timeSlots && timeSlots.length === 0 && (
+                <div style={{color: 'red'}}>Sorry! No more bookings left for this date :( </div>
+            )}
         </div>
     )
 }

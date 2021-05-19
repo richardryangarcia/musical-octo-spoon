@@ -2,7 +2,7 @@ import { Reducer } from "redux";
 import { BookingActions, BookingActionTypes } from "./actions";
 import { Booking } from '../../services/booking';
 
-type RoomBookings = {
+export type RoomBookings = {
     [roomId: number]: Booking[]
 }
 

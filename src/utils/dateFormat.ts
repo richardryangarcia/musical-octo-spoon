@@ -8,6 +8,11 @@ export const formatTime = (date: Date) => {
     return dateParts[1]
 }
 
+export const formatDateTime = (date: Date) => {
+  const string = date.toLocaleDateString(undefined, { year: "numeric", month: "2-digit", day: "2-digit" , hour: "numeric", minute: "numeric", second: "numeric" })
+  return string
+}
+
 export const formatShortDate = (date: Date) => {
   return date.toLocaleDateString(undefined, { year: "numeric", month: "2-digit", day: "2-digit" })
 }
@@ -20,6 +25,15 @@ export const dateNotInThePast = (date: Date, dateNow: Date) => {
 
 export const areTheSameDay = (date:Date, date2: Date) => {
   return formatShortDate(new Date(date)) === formatShortDate(new Date(date2))
+}
+
+export const areTheSameTimeSlot = (start:Date, stop: Date, slotStart: Date, slotStop: Date) => {
+  const formatStartTime = formatDateTime(new Date(start));
+  const formatStopTime = formatDateTime(new Date(stop));
+  const formatSlotStart = formatDateTime(slotStart);
+  const formatSlotStop = formatDateTime(slotStop);
+  let same = (formatStartTime === formatSlotStart && formatStopTime === formatSlotStop)
+  return same;
 }
 
 export type TimeSlot = {
@@ -42,9 +56,9 @@ export const getTimeSlots = (date:Date, openTime: string, closeTime: string): Ti
     date.setHours(i,0o0,0o0);
     let actualStartTime = new Date(date.getTime());
     let actualEndTime = getActualStopDateTime(actualStartTime)
-
-    timeSlots.push({displayStartTime, actualStartTime, actualEndTime})
-    
+    if (actualEndTime > new Date()) {
+      timeSlots.push({displayStartTime, actualStartTime, actualEndTime})    
+    }  
   }
 
   return timeSlots

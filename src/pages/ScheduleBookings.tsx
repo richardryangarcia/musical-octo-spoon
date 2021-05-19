@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
 import { useDispatch } from "react-redux";
 import { Header } from '../components/Jumbotron';
-import { Container, Button } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import { Building } from '../services/user';
 import { BuildingPicker } from '../components/BuildingPicker';
 import { DateSelector } from '../components/DatePicker';
-import { dateNotInThePast} from '../utils/dateFormat';
+import { dateNotInThePast, areTheSameDay, formatDateTime} from '../utils/dateFormat';
 import "react-datepicker/dist/react-datepicker.css";
 import { createBooking} from '../store/booking/actions';
-import { useBuildingState, useUserState } from '../store/hooks';
+import { useBookingState, useBuildingState, useUserState } from '../store/hooks';
 import { buildingDetails } from '../store/building/actions';
 import { RoomPicker } from '../components/RoomPicker';
 import {Room} from '../services/building';
@@ -20,6 +20,7 @@ type ScheduleBookingsProps = {}
 export const ScheduleBookings: React.FC<ScheduleBookingsProps> = () => {
     const user = useUserState()
     const building = useBuildingState()
+    const bookings = useBookingState()
     const dispatch = useDispatch();
     const fetchBuildingDetails = (buildingId:number) => dispatch(buildingDetails(buildingId))
     const fetchRoomBookings = (roomId:number, date: Date) => dispatch(roomBooking(roomId, date))
@@ -31,6 +32,20 @@ export const ScheduleBookings: React.FC<ScheduleBookingsProps> = () => {
     const [selectedStartTime, setSelectedStartTime] = useState<Date>()
     const [selectedStopTime, setSelectedStopTime] = useState<Date>()
     const details = selectedBuilding && building && building.details && building.details[selectedBuilding.id]
+    const roomBookings = selectedRoom && bookings && bookings.roomBookings && bookings.roomBookings[selectedRoom.id]
+    const roomBookingsByDay = roomBookings?.filter(b => areTheSameDay(b.startTime,selectedDate)) || []
+
+    const isSlotBooked = (start: string, stop: string) => {
+        let isSlotBooked = false;
+        if (roomBookingsByDay) {
+            let overlap = roomBookingsByDay.find(b => (formatDateTime(new Date(b.startTime)) === start && formatDateTime(new Date(b.stopTime)) === stop))
+            if (overlap){
+                isSlotBooked = true;
+            }
+        }
+
+        return isSlotBooked;
+    }
 
     const ensureDateAndSetSelected = (arg: Date | [Date,Date] | null) => {
         if (arg instanceof Date && dateNotInThePast(arg,timeNow)) {
@@ -78,13 +93,20 @@ export const ScheduleBookings: React.FC<ScheduleBookingsProps> = () => {
                 }
 
                 {selectedRoom && details && (
-                    <TimeSlotPicker room={selectedRoom} hours={details.hours} events={details.events} setSelectedStartTime={setSelectedStartTime} selectedDate={selectedDate} selectedStartTime={selectedStartTime} setSelectedStopTime={setSelectedStopTime} />
+                    <TimeSlotPicker bookings={roomBookingsByDay} 
+                        selectedRoom={selectedRoom} 
+                        hours={details.hours} 
+                        events={details.events} 
+                        setSelectedStartTime={setSelectedStartTime} 
+                        selectedDate={selectedDate} 
+                        selectedStartTime={selectedStartTime} 
+                        setSelectedStopTime={setSelectedStopTime}
+                        resetForm={resetForm}
+                        saveBooking={saveBooking}
+                        selectedStopTime={selectedStopTime}
+                        isSlotBooked={isSlotBooked}
+                    />
                 )}
-
-            
-                <Button variant="light" onClick={() => resetForm()}>Cancel</Button>
-                <Button variant="primary" onClick={() => saveBooking()}>Save</Button>
-            
             </Container>
         </div>
     )
