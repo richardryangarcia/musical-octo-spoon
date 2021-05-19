@@ -27,14 +27,14 @@ export const App: React.FC = ({children}) => {
             <Spinner animation="grow" variant="info" />
           </div>
         )}
-
+{/* 
         {auth && !auth.loading && auth.error && (
           <div className="App-header">
             <Alert variant='danger'>
               Error: {auth.error.message}
             </Alert>
           </div>
-        )}
+        )} */}
 
         {auth && !auth.loading && !auth.authenticated && (
           <div className="App-header">

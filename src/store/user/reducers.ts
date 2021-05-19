@@ -14,7 +14,7 @@ export interface UserInitialState {
 export const userInitialState: UserInitialState = {
   loading: false,
   details: undefined,
-  buildings: undefined,
+  buildings: [],
   error: undefined,
 };
 

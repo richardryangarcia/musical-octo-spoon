@@ -9,24 +9,25 @@ import { dateNotInThePast} from '../utils/dateFormat';
 import "react-datepicker/dist/react-datepicker.css";
 import {InitialState} from '../store/index';
 import { userDetails} from '../store/user/actions';
+import { useBuildingState, useUserState } from '../store/hooks';
+import { buildingDetails } from '../store/building/actions';
+import { RoomPicker } from '../components/RoomPicker';
+import {Room} from '../services/building';
+import { roomBooking } from '../store/booking/actions';
 
 type ScheduleBookingsProps = {}
 
 export const ScheduleBookings: React.FC<ScheduleBookingsProps> = () => {
-    const userState = useSelector<InitialState, InitialState>(
-        (state) => state
-      );
-
-    //   console.log('id' , userState.id)
+    const user = useUserState()
+    const building = useBuildingState()
     const dispatch = useDispatch();
-    useEffect(() => {
-        // dispatch(userDetails())
-    }, [])
+    const fetchBuildingDetails = (buildingId:number) => dispatch(buildingDetails(buildingId))
+    const fetchRoomBookings = (roomId:number, date: Date) => dispatch(roomBooking(roomId, date))
 
     const timeNow = new Date()
     const [selectedBuilding, setSelectedBuilding] = useState<Building>();
     const [selectedDate, setSelectedDate] = useState<Date>(timeNow);
-    const [selectedRoomId, setSelectedRoomId] = useState<number>(0);
+    const [selectedRoom, setSelectedRoom] = useState<Room>();
     const [selectedStartTime, setSelectedStartTime] = useState<Date>()
 
     const ensureDateAndSetSelected = (arg: Date | [Date,Date] | null) => {
@@ -35,23 +36,14 @@ export const ScheduleBookings: React.FC<ScheduleBookingsProps> = () => {
         }
     }
 
-    const fetchBuildingDetails = (buildingId: number) => {
-        console.log("fetching building details", buildingId)
-    }
-
-
-    const building: Building = {id:4,name: "P0"}
-    const buildings: Building[] = [building,building, building]
-    console.log(selectedBuilding);
-    console.log(selectedDate);
-
     return (
         <div>
             <Header label="Schedule Bookings"/>
             <Container>
                 <DateSelector selectedDate={selectedDate} ensureDateAndSetSelected={ensureDateAndSetSelected} />
-                <BuildingPicker buildings={buildings} selectedBuilding={selectedBuilding} setSelectedBuilding={setSelectedBuilding} fetchBuildingDetails={fetchBuildingDetails} />
-
+                <BuildingPicker buildings={user.buildings} selectedBuilding={selectedBuilding} setSelectedBuilding={setSelectedBuilding} fetchBuildingDetails={fetchBuildingDetails} />
+                {selectedBuilding && building.details[selectedBuilding.id] && (<RoomPicker rooms={building.details[selectedBuilding.id].rooms} selectedRoom={selectedRoom} setSelectedRoom={setSelectedRoom} selectedDate={selectedDate} fetchRoomBookings={fetchRoomBookings} />)}
+            
             </Container>
         </div>
     )

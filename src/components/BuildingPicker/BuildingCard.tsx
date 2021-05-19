@@ -20,7 +20,8 @@ export const BuildingCard: React.FC<BuildingCardProps> = ({building, setSelected
       > 
         <Button variant="light" onClick={() => {
           setSelectedBuilding(building)
-          fetchBuildingDetails(building.id) } 
+          fetchBuildingDetails(building.id) 
+        } 
         }>
             <Card.Body style={{textAlign: 'left', paddingLeft: '15%'}}>
                     <b>Name:</b> {building.name} <br/>

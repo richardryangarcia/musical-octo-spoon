@@ -2,17 +2,24 @@ import { Reducer } from "redux";
 import { BuildingActions, BuildingActionTypes } from "./actions";
 import { Room, Event } from '../../services/building';
 
-export interface BuildingInitialState {
-  loading: boolean;
+type BuildDetails = {
   rooms?: Room[];
   events?: Event[]
+}
+
+type BuildingHash = {
+  [buildingId: number]: BuildDetails
+}
+
+export interface BuildingInitialState {
+  loading: boolean;
+  details: BuildingHash
   error?: Error;
 }
 
 export const buildingInitialState: BuildingInitialState = {
   loading: false,
-  rooms: undefined,
-  events: undefined,
+  details: {},
   error: undefined,
 };
 
@@ -34,11 +41,18 @@ export const buildingReducer: Reducer<BuildingInitialState, BuildingActions> = (
         error: action.payload.error,
       };
     case BuildingActionTypes.BUILDING_DETAILS_SUCCESS:
+      let current = state.details;
+
+      if(action && action.payload && action.payload.rooms) {
+        current = {
+            ...current,
+            [`${action.payload.rooms[0].buildingId}`]: action.payload
+        }
+    }
       return {
         ...state,
         loading: false,
-        rooms: action.payload.rooms,
-        events: action.payload.events
+        details: current
       };
     default: {
       return state;

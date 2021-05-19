@@ -1,5 +1,6 @@
 import axiosConfig from '../configs/axiosConfig';
 import { Room } from '../services/building';
+import { formatShortDate } from '../utils/dateFormat';
 
 export type Booking = {
     id: number;
@@ -22,7 +23,8 @@ export async function getBookingsByUser(): Promise<Booking[]> {
 }
 
 export async function getBookingsByRoom(roomId: number, date: Date): Promise<Booking[]> {
-    const response = await axiosConfig.get(`/bookings/${roomId}`, { params: { date } });
+    const formattedDate = formatShortDate(date).toString();
+    const response = await axiosConfig.get(`/bookings/${roomId}`, { params: { date: formattedDate } });
     return response.data
 }
 

@@ -12,7 +12,7 @@ type BookingCardProps = {
 }
 
 export const BookingCard: React.FC<BookingCardProps> = ({buildings, booking, timeNow, sendDeleteBooking}) => {
-    const cardColor = (booking.startTime <= timeNow && booking.stopTime >= timeNow) ? 'light' : 'light'
+    const cardColor = (booking.startTime <= timeNow && booking.stopTime >= timeNow) ? 'success' : 'light'
     const textColor = cardColor === 'light' ? 'dark' : 'light';
     const formattedDay = formatDate(new Date(booking.startTime))
     const formattedStartTime = formatTime(new Date(booking.startTime))

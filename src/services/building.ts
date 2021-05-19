@@ -22,6 +22,6 @@ export type BuildingDetailsDto = {
 }
 
 export async function getBuildingDetails(buildingId: number): Promise<BuildingDetailsDto> {
-    const response = await axiosConfig.get(`/building/${buildingId}`);
+    const response = await axiosConfig.get(`/buildings/${buildingId}`);
     return response.data
 }
