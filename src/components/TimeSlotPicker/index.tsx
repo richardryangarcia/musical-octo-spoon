@@ -1,19 +1,20 @@
 import React from 'react';
-import {TimeSlotCard} from './TimeSlot';
+import {TimeSlotCard} from './TimeSlotCard';
 import {Room, Hour, Event} from '../../services/building'
-import { areTheSameDay, getTimeSlots, TimeSlot } from '../../utils/dateFormat';
+import { areTheSameDay, getTimeSlots, getHourFromNum } from '../../utils/dateFormat';
 
 type TimeSlotPickerProps = {
     room: Room;
     hours: Hour[];
     events: Event[];
     setSelectedStartTime: (date: Date) => void;
+    setSelectedStopTime: (date: Date) => void;    
     selectedDate: Date;
     selectedStartTime: Date | undefined;
 }
 
-export const TimeSlotPicker: React.FC<TimeSlotPickerProps> = ({room, hours, setSelectedStartTime, events, selectedDate, selectedStartTime}) => {
-    const headerLabel = selectedStartTime ? `Time Slot: ${selectedStartTime.toTimeString()}` : "Choose Time Slot"
+export const TimeSlotPicker: React.FC<TimeSlotPickerProps> = ({room, hours, setSelectedStartTime, setSelectedStopTime, events, selectedDate, selectedStartTime}) => {
+    const headerLabel = selectedStartTime ? `Time Slot: ${getHourFromNum(selectedStartTime.getHours())}` : "Choose Time Slot"
     const labelColor = selectedStartTime ? 'Green' : ""
     let allowedRoles: number[] = events.filter((e) => {
         return areTheSameDay(e.eventDate, selectedDate)
@@ -25,15 +26,6 @@ export const TimeSlotPicker: React.FC<TimeSlotPickerProps> = ({room, hours, setS
     if (dayOfWeek){
         timeSlots = getTimeSlots(selectedDate, dayOfWeek.openTime.toString(), dayOfWeek.closeTime.toString());
     }
-
-    console.log(timeSlots)
-
-    
-
-    // const timeSlots = [] 
-    // while (dayOfWeek?.openTime.getHours)
-
-    // get window of open hours if any 
     
     return (
         <div>
@@ -45,11 +37,11 @@ export const TimeSlotPicker: React.FC<TimeSlotPickerProps> = ({room, hours, setS
                 <div style={{color: 'red'}}>Office Building closed on this day, try a different date</div>
             )}
 
-            {/* {!selectedRoom && rooms && (<div>
-                {  rooms.map((room) => {
-                    return <RoomCard  room={room} setSelectedStartTime={setSelectedStartTime} fetchRoomBookings={fetchRoomBookings} selectedDate={selectedDate}/>
+            {!selectedStartTime && timeSlots && (<div>
+                {  timeSlots.map((timeSlot) => {
+                    return <TimeSlotCard timeSlot={timeSlot} setSelectedStartTime={setSelectedStartTime} setSelectedStopTime={setSelectedStopTime} />
                 })}
-            </div>)} */}
+            </div>)}
         </div>
     )
 }

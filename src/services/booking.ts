@@ -12,7 +12,7 @@ export type Booking = {
 }
 
 export type CreateBookingDto = {
-    roomId: string;
+    roomId: number;
     startTime: Date;
     stopTime: Date;
 }

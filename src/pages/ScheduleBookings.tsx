@@ -1,21 +1,19 @@
-import React, {useState, useEffect} from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import React, {useState} from 'react';
+import { useDispatch } from "react-redux";
 import { Header } from '../components/Jumbotron';
-import { Container } from 'react-bootstrap';
+import { Container, Button } from 'react-bootstrap';
 import { Building } from '../services/user';
 import { BuildingPicker } from '../components/BuildingPicker';
 import { DateSelector } from '../components/DatePicker';
 import { dateNotInThePast} from '../utils/dateFormat';
 import "react-datepicker/dist/react-datepicker.css";
-import {InitialState} from '../store/index';
-import { userDetails} from '../store/user/actions';
+import { createBooking} from '../store/booking/actions';
 import { useBuildingState, useUserState } from '../store/hooks';
 import { buildingDetails } from '../store/building/actions';
 import { RoomPicker } from '../components/RoomPicker';
 import {Room} from '../services/building';
 import { roomBooking } from '../store/booking/actions';
 import { TimeSlotPicker } from '../components/TimeSlotPicker';
-import { buildingInitialState } from '../store/building/reducers';
 
 type ScheduleBookingsProps = {}
 
@@ -31,11 +29,26 @@ export const ScheduleBookings: React.FC<ScheduleBookingsProps> = () => {
     const [selectedDate, setSelectedDate] = useState<Date>(timeNow);
     const [selectedRoom, setSelectedRoom] = useState<Room>();
     const [selectedStartTime, setSelectedStartTime] = useState<Date>()
+    const [selectedStopTime, setSelectedStopTime] = useState<Date>()
     const details = selectedBuilding && building && building.details && building.details[selectedBuilding.id]
 
     const ensureDateAndSetSelected = (arg: Date | [Date,Date] | null) => {
         if (arg instanceof Date && dateNotInThePast(arg,timeNow)) {
             setSelectedDate(arg)
+        }
+    }
+
+    const resetForm = () => {
+        setSelectedBuilding(undefined);
+        setSelectedRoom(undefined);
+        setSelectedDate(new Date())
+        setSelectedStartTime(undefined);
+        setSelectedStopTime(undefined)
+    }
+
+    const saveBooking = () => {
+        if (selectedRoom && selectedStartTime && selectedStopTime){
+            dispatch(createBooking({roomId: selectedRoom.id, startTime:selectedStartTime, stopTime: selectedStopTime}))
         }
     }
 
@@ -65,8 +78,12 @@ export const ScheduleBookings: React.FC<ScheduleBookingsProps> = () => {
                 }
 
                 {selectedRoom && details && (
-                    <TimeSlotPicker room={selectedRoom} hours={details.hours} events={details.events} setSelectedStartTime={setSelectedStartTime} selectedDate={selectedDate} selectedStartTime={selectedStartTime} />
+                    <TimeSlotPicker room={selectedRoom} hours={details.hours} events={details.events} setSelectedStartTime={setSelectedStartTime} selectedDate={selectedDate} selectedStartTime={selectedStartTime} setSelectedStopTime={setSelectedStopTime} />
                 )}
+
+            
+                <Button variant="light" onClick={() => resetForm()}>Cancel</Button>
+                <Button variant="primary" onClick={() => saveBooking()}>Save</Button>
             
             </Container>
         </div>

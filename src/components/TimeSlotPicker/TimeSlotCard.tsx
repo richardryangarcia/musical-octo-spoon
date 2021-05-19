@@ -5,9 +5,11 @@ import { TimeSlot } from '../../utils/dateFormat';
 
 type TimeSlotCardProps = {
     setSelectedStartTime: (startTime: Date) => void;
+    setSelectedStopTime: (startTime: Date) => void;
+    timeSlot: TimeSlot;
 }
 
-export const TimeSlotCard: React.FC<TimeSlotCardProps> = ({setSelectedStartTime }) => {
+export const TimeSlotCard: React.FC<TimeSlotCardProps> = ({timeSlot, setSelectedStartTime, setSelectedStopTime }) => {
     return (
         <Card
         bg='light'
@@ -15,11 +17,12 @@ export const TimeSlotCard: React.FC<TimeSlotCardProps> = ({setSelectedStartTime 
         className="mb-2"
       > 
         <Button variant="light" onClick={() => {
-        //   setSelectedStartTime(room)
+          setSelectedStartTime(timeSlot.actualStartTime)
+          setSelectedStopTime(timeSlot.actualEndTime)
         } 
         }>
             <Card.Body style={{textAlign: 'left', paddingLeft: '15%'}}>
-                    {/* <b>Name:</b> {room.name} <br/> */}
+                    <b>Time:</b> {timeSlot.displayStartTime} <br/>
             </Card.Body>
         </Button>
       </Card>

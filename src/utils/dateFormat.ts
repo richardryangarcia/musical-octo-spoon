@@ -52,13 +52,12 @@ export const getTimeSlots = (date:Date, openTime: string, closeTime: string): Ti
 
 const getActualStopDateTime = (startTime:Date) => {
     let copiedDate = new Date(startTime.getTime());
-    console.log(copiedDate)
     copiedDate.setHours(copiedDate.getHours()+1);
     copiedDate.setSeconds(copiedDate.getSeconds()-1);
     return copiedDate;
 }
 
-const getHourFromNum = (hour: number) => {
+export const getHourFromNum = (hour: number) => {
   let ampm = hour >= 12 ? 'pm' : 'am';
   hour = hour % 12;
   hour = hour ? hour : 12; // the hour '0' should be '12'
