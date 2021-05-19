@@ -1,10 +1,11 @@
 import { Reducer } from "redux";
 import { BuildingActions, BuildingActionTypes } from "./actions";
-import { Room, Event } from '../../services/building';
+import { Room, Event, Hour } from '../../services/building';
 
 type BuildDetails = {
-  rooms?: Room[];
-  events?: Event[]
+  rooms: Room[];
+  events: Event[];
+  hours: Hour[];
 }
 
 type BuildingHash = {

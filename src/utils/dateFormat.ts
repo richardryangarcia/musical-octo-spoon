@@ -17,3 +17,7 @@ export const dateNotInThePast = (date: Date, dateNow: Date) => {
   const dateFormatted = formatShortDate(date)
   return dateFormatted >= dateNowFormatted
 }
+
+export const areTheSameDay = (dateString:Date, dateString2: Date) => {
+  return formatShortDate(new Date(dateString)) === formatShortDate(new Date(dateString2))
+}

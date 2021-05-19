@@ -1,5 +1,12 @@
 import axiosConfig from '../configs/axiosConfig';
 
+export type Hour = {
+    id: number;
+    dayOfWeek: number;
+    openTime: Date;
+    closeTime: Date;
+}
+
 export type Room = {
     id: number;
     name: string;
@@ -19,6 +26,7 @@ export type Event = {
 export type BuildingDetailsDto = {
     rooms: Room[];
     events: Event[];
+    hours: Hour[]
 }
 
 export async function getBuildingDetails(buildingId: number): Promise<BuildingDetailsDto> {
