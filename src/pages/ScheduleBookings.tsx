@@ -58,14 +58,16 @@ export const ScheduleBookings: React.FC<ScheduleBookingsProps> = () => {
     const resetForm = () => {
         setSelectedBuilding(undefined);
         setSelectedRoom(undefined);
-        setSelectedDate(new Date())
+        setSelectedDate(new Date());
         setSelectedStartTime(undefined);
-        setSelectedStopTime(undefined)
+        setSelectedStopTime(undefined);
     }
 
     const saveBooking = () => {
         if (selectedRoom && selectedStartTime && selectedStopTime){
             dispatch(createBooking({roomId: selectedRoom.id, startTime:selectedStartTime, stopTime: selectedStopTime}))
+            setSelectedStartTime(undefined);
+            setSelectedStopTime(undefined);
         }
     }
 
