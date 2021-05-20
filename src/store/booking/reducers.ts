@@ -70,7 +70,6 @@ export const bookingReducer: Reducer<BookingInitialState, BookingActions> = (
         let bookings = state.roomBookings;
         if(action && action.payload && action.payload[0]) {
             bookings = {
-                ...bookings,
                 [`${action.payload[0].roomId}`]: action.payload
             }
         }
