@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import { useDispatch } from "react-redux";
 import { Container } from 'react-bootstrap';
 import { BookingCard } from '../components/BookingCard';
-import { Booking } from '../services/booking';
 import { Header } from '../components/Jumbotron';
 import { useBookingState, useUserState } from '../store/hooks';
 import { userBooking, deleteBooking } from '../store/booking/actions';
@@ -19,7 +18,7 @@ export const MyBookings: React.FC<MyBookingsProps> = () => {
 
     useEffect(() => {
         dispatch(userBooking())
-    }, [])
+    }, [dispatch])
 
     const sendDeleteBooking = (id: number) => dispatch(deleteBooking(id))
 

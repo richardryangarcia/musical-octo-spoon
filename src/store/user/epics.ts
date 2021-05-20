@@ -5,7 +5,7 @@ import { isOfType } from "typesafe-actions";
 import { AllActions, InitialState } from '../index';
 import { UserActionTypes, userDetailsSuccess, userDetailsFailure } from './actions';
 import { getUserDetails } from '../../services/user';
-import { authenticate, doneLoading, signInFailure } from '../auth/actions';
+import { authenticate, doneLoading } from '../auth/actions';
 
 export const userDetailsEpic: Epic<AllActions, AllActions, InitialState> = (
     action$: ActionsObservable<AllActions>

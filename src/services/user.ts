@@ -1,6 +1,5 @@
 import axiosConfig from '../configs/axiosConfig';
 
-
 export type Role = {
     id: number;
     name: string;

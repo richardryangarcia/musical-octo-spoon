@@ -1,7 +1,5 @@
 import React from 'react';
-import { Booking } from '../../services/booking'
 import { Card, Button } from 'react-bootstrap';
-import { formatDate, formatTime} from '../../utils/dateFormat';
 import {Building} from '../../services/user';
 
 type BuildingCardProps = {

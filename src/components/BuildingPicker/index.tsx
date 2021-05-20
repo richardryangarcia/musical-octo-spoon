@@ -1,7 +1,6 @@
 import React from 'react';
 import {BuildingCard} from './BuildingCard';
 import {Building} from '../../services/user'
-import {Card } from 'react-bootstrap';
 
 type BuildingPickerProps = {
     buildings: Building[] | undefined;

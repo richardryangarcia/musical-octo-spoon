@@ -33,9 +33,6 @@ export const authReducer: Reducer<AuthInitialState, AuthActions> = (
         error: undefined,
       };
     case AuthActionTypes.SIGN_IN_SUCCESS:
-      console.log('in success')
-      asyncSetLocalStorage(action.payload.jwt)
-      console.log('after success')
       return {
         ...state,
         loading: false,
@@ -73,9 +70,3 @@ export const authReducer: Reducer<AuthInitialState, AuthActions> = (
   }
 };
 
-const asyncSetLocalStorage = (jwt: string) => {
-  console.log('async')
-  return Promise.resolve().then(function () {
-    localStorage.setItem(`${process.env.REACT_APP_TOKEN_ID || ''}`, jwt);
-});
-}

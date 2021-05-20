@@ -1,5 +1,5 @@
-import React, { ChangeEventHandler, useState } from "react";
-import { Button, Form, FormControlProps } from "react-bootstrap";
+import React, { useState } from "react";
+import { Button, Form } from "react-bootstrap";
 import { AuthenticateDto } from '../../services/auth';
 
 type SignUpFormProps = {

@@ -1,5 +1,5 @@
-import React, { ChangeEventHandler, useState } from "react";
-import { Button, Form, FormControlProps } from "react-bootstrap";
+import React, { useState } from "react";
+import { Button, Form } from "react-bootstrap";
 
 type LoginFormProps = {
   toggleForm: () => void;
@@ -12,7 +12,6 @@ export const LoginForm: React.FC<LoginFormProps> = ({ toggleForm, dispatchLogin 
 
   const create = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(email,password)
     dispatchLogin({ email, password });
     setEmail("");
     setPassword("");

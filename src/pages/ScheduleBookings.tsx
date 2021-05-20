@@ -34,6 +34,8 @@ export const ScheduleBookings: React.FC<ScheduleBookingsProps> = () => {
     const details = selectedBuilding && building && building.details && building.details[selectedBuilding.id]
     const roomBookings = selectedRoom && bookings && bookings.roomBookings && bookings.roomBookings[selectedRoom.id]
     const roomBookingsByDay = roomBookings?.filter(b => areTheSameDay(b.startTime,selectedDate)) || []
+    const userRoles = user && user.details && user.details.roles
+    const userRoleIds = userRoles?.map(r => r.id) || [];
 
     const isSlotBooked = (start: string, stop: string) => {
         let isSlotBooked = false;
@@ -88,6 +90,8 @@ export const ScheduleBookings: React.FC<ScheduleBookingsProps> = () => {
                         setSelectedRoom={setSelectedRoom} 
                         selectedDate={selectedDate} 
                         fetchRoomBookings={fetchRoomBookings} 
+                        userRoleIds={userRoleIds}
+                        events={details.events} 
                     />
                     )
                 }

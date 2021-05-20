@@ -15,18 +15,14 @@ export async function healthcheck(): Promise<void> {
 }
 
 export async function signUp(authentiateDto: AuthenticateDto): Promise<void> {
-    console.log('itss wroking')
     const response = await axiosConfig.post('/users/signup', authentiateDto)
     return response.data
 }
 
 export async function signIn(authentiateDto: AuthenticateDto): Promise<SignInResponse> {
     const response =  await axiosConfig.post('/users/signin', authentiateDto)
-    console.log(response)
-    return response.data
-}
-
-export async function register(authentiateDto: AuthenticateDto): Promise<void> {
-    const response = await axiosConfig.post('/users/signup', authentiateDto)
+    await localStorage.setItem(`${process.env.REACT_APP_TOKEN_ID || ''}`, response.data.jwt)
+    let token = await localStorage.getItem(`${process.env.REACT_APP_TOKEN_ID}`)
+    axiosConfig.defaults.headers.common['Authorization'] = `Bearer ${token}`
     return response.data
 }

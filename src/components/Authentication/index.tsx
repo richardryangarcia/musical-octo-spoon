@@ -19,7 +19,7 @@ export const Authentication: React.FC<AuthenticationProps> = () => {
     const dispatchSignUp = (params: AuthenticateDto) => { dispatch(signUp(params)) }
 
     return (
-    <Card className="bg-dark text-white">
+    <Card className="bg-light">
         <Card.Header>Employee Conference Room Bookings</Card.Header>
         <Card.Body>
 

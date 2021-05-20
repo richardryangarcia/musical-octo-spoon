@@ -1,7 +1,7 @@
 import { AllActions, InitialState } from '../index';
 import { ActionsObservable, Epic } from "redux-observable";
 import { switchMap, catchError, mergeMap, filter } from "rxjs/operators";
-import { BookingActionTypes, bookingFailure, bookingSuccess, userBookingSuccess, roomBookingSuccess, userBooking } from './actions';
+import { BookingActionTypes, bookingFailure, bookingSuccess, userBookingSuccess, roomBookingSuccess, userBooking, roomBooking } from './actions';
 import { isOfType } from "typesafe-actions";
 import { of, from, merge } from "rxjs";
 import { createBooking, deleteBooking, getBookingsByUser, getBookingsByRoom } from '../../services/booking';
@@ -15,6 +15,8 @@ export const createBookingEpic: Epic<AllActions, AllActions, InitialState> = (
         return from(createBooking(action.payload)).pipe(
           mergeMap(() => [
             bookingSuccess(),
+            userBooking(),
+            roomBooking(action.payload.roomId, new Date(action.payload.startTime))
           ]),
           catchError((error) =>
             merge(
