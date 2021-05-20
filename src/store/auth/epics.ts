@@ -6,6 +6,7 @@ import { isOfType } from "typesafe-actions";
 import { of, from, merge } from "rxjs";
 import { signUp, signIn } from '../../services/auth';
 import { userDetails } from '../user/actions';
+import {addNotification} from '../notification/actions';
 
 export const signUpEpic: Epic<AllActions, AllActions, InitialState> = (
     action$: ActionsObservable<AllActions>
@@ -16,10 +17,12 @@ export const signUpEpic: Epic<AllActions, AllActions, InitialState> = (
         return from(signUp(action.payload)).pipe(
           mergeMap(() => [
             doneLoading(),
+            addNotification("Sign up successful. Please sign in.")
           ]),
           catchError((error) =>
             merge(
-              of(signUpFailure(error))
+              of(signUpFailure(error)),
+              of(addNotification("Error signing up. Please make sure email domain matches approved employers"))
             )
           )
         );
@@ -35,11 +38,13 @@ export const signInEpic: Epic<AllActions, AllActions, InitialState> = (
         return from(signIn(action.payload)).pipe(
             mergeMap((data) => [
                 signInSuccess(data),
+                addNotification("Welcome back!"),
                 userDetails()
             ]),
             catchError((error) =>
             merge(
-                of(signInFailure(error))
+                of(signInFailure(error)),
+                of(addNotification("Error signing in. Please do better."))
             )
             )
         );

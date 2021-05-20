@@ -5,6 +5,7 @@ import { BookingActionTypes, bookingFailure, bookingSuccess, userBookingSuccess,
 import { isOfType } from "typesafe-actions";
 import { of, from, merge } from "rxjs";
 import { createBooking, deleteBooking, getBookingsByUser, getBookingsByRoom } from '../../services/booking';
+import { addNotification } from '../notification/actions';
 
 export const createBookingEpic: Epic<AllActions, AllActions, InitialState> = (
     action$: ActionsObservable<AllActions>
@@ -15,6 +16,7 @@ export const createBookingEpic: Epic<AllActions, AllActions, InitialState> = (
         return from(createBooking(action.payload)).pipe(
           mergeMap(() => [
             bookingSuccess(),
+            addNotification("Booking created successfully"),
             userBooking(),
             roomBooking(action.payload.roomId, new Date(action.payload.startTime))
           ]),
@@ -36,6 +38,7 @@ export const deleteBookingEpic: Epic<AllActions, AllActions, InitialState> = (
         return from(deleteBooking(action.payload.bookingId)).pipe(
             mergeMap(() => [
                 bookingSuccess(),
+                addNotification("Youve deleted this booking"),
                 userBooking()
             ]),
             catchError((error) =>

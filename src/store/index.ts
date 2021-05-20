@@ -11,27 +11,32 @@ import {
   import { BookingEpics } from './booking/epics';
   import { BuildingEpics } from './building/epics';
   import { UserEpics } from './user/epics';
+  import { NotificationEpics } from './notification/epics';
 
   import { AuthActions } from './auth/actions';
   import { BookingActions } from './booking/actions';
   import { BuildingActions } from './building/actions';
   import { UserActions } from './user/actions';
+  import { NotificationActions } from './notification/actions';
 
   import { AuthInitialState, authInitialState, authReducer } from './auth/reducers';
   import { BookingInitialState, bookingInitialState, bookingReducer } from './booking/reducers';
   import { BuildingInitialState, buildingInitialState, buildingReducer } from './building/reducers';
   import { UserInitialState, userInitialState, userReducer } from './user/reducers';
+  import { notificationReducer, notificationInitialState, NotificationInitialState} from './notification/reducers';
 
   export type AllActions = 
     | AuthActions
     | BookingActions
     | BuildingActions
     | UserActions
+    | NotificationActions
 
   export type InitialState = {
     auth: AuthInitialState,
     booking: BookingInitialState,
     building: BuildingInitialState,
+    notifications: NotificationInitialState,
     user: UserInitialState
 }
 
@@ -39,6 +44,7 @@ const initialState: InitialState = {
     auth: authInitialState,
     booking: bookingInitialState,
     building: buildingInitialState,
+    notifications: notificationInitialState,
     user: userInitialState
 }
   
@@ -47,6 +53,7 @@ export const reducers = combineReducers({
     auth: authReducer,
     booking: bookingReducer,
     building: buildingReducer,
+    notifications: notificationReducer
   });
   
   const epics = combineEpics(
@@ -54,6 +61,7 @@ export const reducers = combineReducers({
     ...BookingEpics,
     ...BuildingEpics,
     ...UserEpics,
+    ...NotificationEpics
   )
   
   ///// setup store //////

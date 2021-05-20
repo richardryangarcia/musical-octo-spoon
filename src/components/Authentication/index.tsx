@@ -23,7 +23,7 @@ export const Authentication: React.FC<AuthenticationProps> = () => {
         <Card.Header>Employee Conference Room Bookings</Card.Header>
         <Card.Body>
 
-            <Card.Title>{label}</Card.Title>
+            <h2>{label}</h2>
 
             {signUpForm && <SignUpForm dispatchSignUp={dispatchSignUp} toggleForm={toggleForm}/>}
 

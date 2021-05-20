@@ -20,7 +20,6 @@ export const LoginForm: React.FC<LoginFormProps> = ({ toggleForm, dispatchLogin 
   return (
     <Form onSubmit={create}>
       <Form.Group controlId="email">
-        <Form.Label>Email address</Form.Label>
         <Form.Control
           type="text"
           placeholder="Enter email"
@@ -33,7 +32,6 @@ export const LoginForm: React.FC<LoginFormProps> = ({ toggleForm, dispatchLogin 
         />
       </Form.Group>
       <Form.Group controlId="password">
-        <Form.Label>Password</Form.Label>
         <Form.Control
           type="password"
           placeholder="Password"
@@ -53,7 +51,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ toggleForm, dispatchLogin 
       >
         Submit
       </Button>
-      New here?{" "}
+      <span style={{fontSize:'20px'}}>New here?{" "}</span>
       <Button variant="link" onClick={() => toggleForm()}>
         Register
       </Button>

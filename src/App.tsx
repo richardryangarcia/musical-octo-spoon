@@ -5,6 +5,7 @@ import { userDetails } from './store/user/actions';
 import { Spinner } from 'react-bootstrap';
 import { Authentication } from './components/Authentication';
 import { useAuthState } from './store/hooks';
+import {ToastWrapper} from './components/Toast/ToastWrapper';
 
 export const App: React.FC = ({children}) => {
   const auth = useAuthState();
@@ -17,6 +18,7 @@ export const App: React.FC = ({children}) => {
 
   return (
     <div className="App">
+        <ToastWrapper />
       
         {(!auth || auth.loading) && (
           <div className="App-header">

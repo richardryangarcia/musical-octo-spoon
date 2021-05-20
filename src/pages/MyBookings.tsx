@@ -27,6 +27,9 @@ export const MyBookings: React.FC<MyBookingsProps> = () => {
             <Header label="My Bookings"/>
 
             <Container>
+                {bookings && bookings.userBookings.length == 0 && (
+                    <div style={{color: "#17a2b8"}}>You have no schedule bookings. Click Reserve a room to book a space.</div>
+                )}
                 {bookings.userBookings.map((booking) => {
                     return (new Date(booking.stopTime) <  new Date(timeNow)) ? <div/> : (
                     <BookingCard buildings={buildings} timeNow={timeNow} booking={booking} sendDeleteBooking={sendDeleteBooking}/>

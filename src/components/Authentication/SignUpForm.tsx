@@ -16,12 +16,12 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({ toggleForm, dispatchSign
     dispatchSignUp({ email, password });
     setEmail("");
     setPassword("");
+    toggleForm()
   };
 
   return (
     <Form onSubmit={create}>
       <Form.Group controlId="email">
-        <Form.Label>Email address</Form.Label>
         <Form.Control
           type="text"
           placeholder="Enter email"
@@ -34,7 +34,6 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({ toggleForm, dispatchSign
         />
       </Form.Group>
       <Form.Group controlId="password">
-        <Form.Label>Password</Form.Label>
         <Form.Control
           type="password"
           placeholder="Password"
@@ -55,7 +54,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({ toggleForm, dispatchSign
         Submit
       </Button>
       
-      Already have a account?{" "}
+      <span style={{fontSize:'20px'}}>Already have a account?{" "}</span>
       <Button variant="link" onClick={() => toggleForm()}>
         Log In
       </Button>
