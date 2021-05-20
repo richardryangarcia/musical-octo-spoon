@@ -24,7 +24,13 @@ export const dateNotInThePast = (date: Date, dateNow: Date) => {
 }
 
 export const areTheSameDay = (date:Date, date2: Date) => {
-  return formatShortDate(new Date(date)) === formatShortDate(new Date(date2))
+  const formattedDate = parseDate(date.toString())
+
+  if (!formattedDate) {
+    return false
+  }
+
+  return formatShortDate(formattedDate) === formatShortDate(new Date(date2))
 }
 
 export const areTheSameTimeSlot = (start:Date, stop: Date, slotStart: Date, slotStop: Date) => {
@@ -77,4 +83,16 @@ export const getHourFromNum = (hour: number) => {
   hour = hour ? hour : 12; // the hour '0' should be '12'
   let strTime = hour + ' ' + ampm;
   return strTime;
+}
+// parse a date in yyyy-mm-dd format
+function parseDate(input:string) {
+  if (!input) return;
+  var parts = input.match(/(\d+)/g);
+  let date;
+  if (parts) {
+    date = new Date(parseInt(parts[0]), parseInt(parts[1])-1, parseInt(parts[2]));
+  }
+  
+  // new Date(year, month [, date [, hours[, minutes[, seconds[, ms]]]]])
+  return date; // months are 0-based
 }

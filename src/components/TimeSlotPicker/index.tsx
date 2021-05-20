@@ -44,7 +44,7 @@ export const TimeSlotPicker: React.FC<TimeSlotPickerProps> = ({
 
     let dayOfWeek = hours.find(hour => hour.dayOfWeek === selectedDate.getDay())
     let timeSlots;
-    if (dayOfWeek){
+    if (dayOfWeek && dayOfWeek.openTime && dayOfWeek.closeTime){
         timeSlots = getTimeSlots(selectedDate, dayOfWeek.openTime.toString(), dayOfWeek.closeTime.toString());
     }
     
