@@ -32,7 +32,7 @@ export const MyBookings: React.FC<MyBookingsProps> = () => {
                 )}
                 {bookings.userBookings.map((booking) => {
                     return (new Date(booking.stopTime) <  new Date(timeNow)) ? <div/> : (
-                    <BookingCard buildings={buildings} timeNow={timeNow} booking={booking} sendDeleteBooking={sendDeleteBooking}/>
+                        <BookingCard buildings={buildings} timeNow={timeNow} booking={booking} sendDeleteBooking={sendDeleteBooking}/>
                     )
                 })}
             </Container>

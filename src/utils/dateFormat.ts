@@ -84,8 +84,8 @@ export const getHourFromNum = (hour: number) => {
   let strTime = hour + ' ' + ampm;
   return strTime;
 }
-// parse a date in yyyy-mm-dd format
-function parseDate(input:string) {
+
+export const parseDate = (input:string) => {
   if (!input) return;
   var parts = input.match(/(\d+)/g);
   let date;
@@ -93,6 +93,5 @@ function parseDate(input:string) {
     date = new Date(parseInt(parts[0]), parseInt(parts[1])-1, parseInt(parts[2]));
   }
   
-  // new Date(year, month [, date [, hours[, minutes[, seconds[, ms]]]]])
-  return date; // months are 0-based
+  return date; 
 }
