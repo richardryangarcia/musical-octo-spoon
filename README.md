@@ -1,5 +1,20 @@
 # Conference Room Booking App
 
-Demo can be found here: http://musical-octo-spoon.herokuapp.com/
+React application for booking conference rooms 
 
-Note: To sign up, you will need to use an email with the domain @coke.com or @pepsi.com (Dont worry they dont have to be real)
+## Installation
+
+```bash
+$ yarn
+```
+
+## Start up
+
+```bash
+$ yarn start
+```
+
+# Application server 
+`
+https://github.com/richardryangarcia/animated-octo-doodle
+`
