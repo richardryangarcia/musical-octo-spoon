@@ -10,7 +10,7 @@ export const createMessageEpic: Epic<NotificationActions, NotificationActions, N
 ) =>
   action$.pipe(
     filter(isOfType(ActionTypes.ADD_NOTIFICATION)),
-    delayWhen(() => timer(3000)),
+    delayWhen(() => timer(5000)),
     map((action) => removeNotification(action.payload))
   );
 

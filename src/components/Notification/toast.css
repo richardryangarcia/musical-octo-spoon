@@ -37,11 +37,11 @@
   color: #fff;
 }
 .toast.info {
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: darkgray;
   color: #fff;
 }
 .toast.danger {
-  background-color: #05b2b5;
+  background-color: #d81e18;
   color: #fff;
 }
 .toast:not(:last-child) {

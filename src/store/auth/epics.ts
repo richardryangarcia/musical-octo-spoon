@@ -7,6 +7,7 @@ import { of, from, merge } from "rxjs";
 import { signUp, signIn } from '../../services/auth';
 import { userDetails } from '../user/actions';
 import {addNotification} from '../notification/actions';
+import {NotificationType, NotificationMessage} from '../notification/reducers';
 
 export const signUpEpic: Epic<AllActions, AllActions, InitialState> = (
     action$: ActionsObservable<AllActions>
@@ -17,12 +18,18 @@ export const signUpEpic: Epic<AllActions, AllActions, InitialState> = (
         return from(signUp(action.payload)).pipe(
           mergeMap(() => [
             doneLoading(),
-            addNotification("Sign up successful. Please sign in.")
+            addNotification({
+              message: NotificationMessage.SIGN_UP_SUCCESS, 
+              type: NotificationType.SUCCESS
+            }),
           ]),
           catchError((error) =>
             merge(
               of(signUpFailure(error)),
-              of(addNotification("Error signing up. Please make sure email domain matches approved employers"))
+              of(addNotification({
+                message:NotificationMessage.SIGN_UP_FAILURE,
+                type:NotificationType.DANGER
+              }))
             )
           )
         );
@@ -38,13 +45,19 @@ export const signInEpic: Epic<AllActions, AllActions, InitialState> = (
         return from(signIn(action.payload)).pipe(
             mergeMap((data) => [
                 signInSuccess(data),
-                addNotification("Welcome back!"),
+                addNotification({ 
+                  message: NotificationMessage.SIGN_IN_SUCCESS, 
+                  type: NotificationType.SUCCESS
+                }),
                 userDetails()
             ]),
             catchError((error) =>
             merge(
                 of(signInFailure(error)),
-                of(addNotification("Error signing in. Please do better."))
+                of(addNotification({
+                  message: NotificationMessage.SIGN_IN_FAILURE,
+                  type: NotificationType.DANGER
+                }))
             )
             )
         );

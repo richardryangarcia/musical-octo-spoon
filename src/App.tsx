@@ -5,7 +5,7 @@ import { userDetails } from './store/user/actions';
 import { Spinner } from 'react-bootstrap';
 import { Authentication } from './components/Authentication';
 import { useAuthState } from './store/hooks';
-import {ToastWrapper} from './components/Toast/ToastWrapper';
+import {ToastWrapper} from './components/Notification/NotificationWrapper';
 
 export const App: React.FC = ({children}) => {
   const auth = useAuthState();

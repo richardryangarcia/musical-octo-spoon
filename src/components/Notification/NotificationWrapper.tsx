@@ -6,7 +6,9 @@ import { ToastNotification } from "./ToastNotification";
 import { removeNotification } from "../../store/notification/actions";
 import "./toast.css"
 
-export const ToastWrapper: React.FC = () => {
+type NotificationWrapperProps = {}
+
+export const ToastWrapper: React.FC<NotificationWrapperProps> = () => {
   const dispatch = useDispatch();
   const notifications = useSelector<
     InitialState,
@@ -21,13 +23,14 @@ export const ToastWrapper: React.FC = () => {
     <div aria-live='polite' aria-atomic='true' className='toast__wrapper'>
       <div className='toast__div'>
         {notifications.notifications.map((notification) => {
-          const { id, message } = notification;
+          const { id, message, type } = notification;
           return (
             <ToastNotification
               key={id}
               id={id}
               message={message}
               removeToast={removeToast}
+              type={type}
             />
           );
         })}
