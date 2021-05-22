@@ -2,6 +2,8 @@
 
 React application for booking conference rooms 
 
+NOTE: To sign up you must use an email address with @coke.com or @pepsi.com domain. (Dont worry it doesnt have to be real)
+
 ## Installation
 
 ```bash
