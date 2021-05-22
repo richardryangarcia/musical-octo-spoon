@@ -1,4 +1,4 @@
-import axiosConfig from '../configs/axiosConfig';
+import axiosConfig, {setTokenInLocalStorage, setTokenToAxiosHeader} from '../configs/axiosConfig';
 
 export type AuthenticateDto = {
     email: string;
@@ -21,8 +21,7 @@ export async function signUp(authentiateDto: AuthenticateDto): Promise<void> {
 
 export async function signIn(authentiateDto: AuthenticateDto): Promise<SignInResponse> {
     const response =  await axiosConfig.post('/users/signin', authentiateDto)
-    await localStorage.setItem(`${process.env.REACT_APP_TOKEN_ID || ''}`, response.data.jwt)
-    let token = await localStorage.getItem(`${process.env.REACT_APP_TOKEN_ID}`)
-    axiosConfig.defaults.headers.common['Authorization'] = `Bearer ${token}`
+    await setTokenInLocalStorage(response.data.jwt)
+    await setTokenToAxiosHeader()
     return response.data
 }

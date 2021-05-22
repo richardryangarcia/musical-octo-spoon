@@ -5,9 +5,9 @@ import {
   Switch,
   Redirect,
 } from "react-router-dom";
-import { App } from "./App";
-import { MyBookings } from "./pages/MyBookings";
-import { ScheduleBookings } from "./pages/ScheduleBookings";
+import { App } from "../App";
+import { MyBookings } from "../pages/MyBookings";
+import { ScheduleBookings } from "../pages/ScheduleBookings";
 
 export const AppRouter: React.FC = () => {
   return (

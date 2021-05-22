@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from "react-redux";
-import './App.css';
+import './styles/App.css';
 import { userDetails } from './store/user/actions';
 import { Spinner } from 'react-bootstrap';
 import { Authentication } from './components/Authentication';
