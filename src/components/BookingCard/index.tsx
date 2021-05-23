@@ -19,7 +19,7 @@ export const BookingCard: React.FC<BookingCardProps> = ({buildings, booking, tim
     const formattedStartTime = formatTime(new Date(booking.startTime))
     const formattedStopTime = formatTime(new Date(booking.stopTime))
     const building = buildings.find(b => b.id === booking.room.buildingId);
-    const current = (new Date(booking.startTime) <= timeNow && timeNow <= new Date(booking.stopTime))  ? true : true;
+    const current = (new Date(booking.startTime) <= timeNow && timeNow <= new Date(booking.stopTime))  ? true : false;
     const cardColor = current ? 'success' : 'light'
     const textColor = current ? 'light' : 'dark';
     const web3Found = web3?.givenProvider && web3.givenProvider.isMetaMask
