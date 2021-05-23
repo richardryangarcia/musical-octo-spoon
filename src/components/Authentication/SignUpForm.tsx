@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { AuthenticateDto } from '../../services/auth';
+import { AuthenticateDto } from "../../services/auth";
 
 type SignUpFormProps = {
   toggleForm: () => void;
   dispatchSignUp: (params: AuthenticateDto) => void;
 };
 
-export const SignUpForm: React.FC<SignUpFormProps> = ({ toggleForm, dispatchSignUp }) => {
+export const SignUpForm: React.FC<SignUpFormProps> = ({
+  toggleForm,
+  dispatchSignUp,
+}) => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
@@ -16,7 +19,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({ toggleForm, dispatchSign
     dispatchSignUp({ email, password });
     setEmail("");
     setPassword("");
-    toggleForm()
+    toggleForm();
   };
 
   return (
@@ -28,7 +31,9 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({ toggleForm, dispatchSign
           value={email}
           onChange={(event) => {
             setEmail(
-              event.currentTarget.value ? event.currentTarget.value.toString() : ""
+              event.currentTarget.value
+                ? event.currentTarget.value.toString()
+                : ""
             );
           }}
         />
@@ -40,20 +45,18 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({ toggleForm, dispatchSign
           value={password}
           onChange={(event) => {
             setPassword(
-              event.currentTarget.value ? event.currentTarget.value.toString() : ""
+              event.currentTarget.value
+                ? event.currentTarget.value.toString()
+                : ""
             );
           }}
         />
       </Form.Group>
-      <Button
-        className="submit-btn full-width"
-        variant="primary"
-        type="submit"
-      >
+      <Button className="submit-btn full-width" variant="primary" type="submit">
         Submit
       </Button>
-      
-      <span className='md-text'>Already have a account?{" "}</span>
+
+      <span className="md-text">Already have a account? </span>
       <Button variant="link" onClick={() => toggleForm()}>
         Log In
       </Button>

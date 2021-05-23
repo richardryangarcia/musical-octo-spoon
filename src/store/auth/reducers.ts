@@ -36,7 +36,7 @@ export const authReducer: Reducer<AuthInitialState, AuthActions> = (
       return {
         ...state,
         loading: false,
-        authenticated: true      
+        authenticated: true,
       };
     case AuthActionTypes.SIGN_IN_FAILURE:
       return {
@@ -62,11 +62,10 @@ export const authReducer: Reducer<AuthInitialState, AuthActions> = (
         ...state,
         loading: false,
         error: undefined,
-        authenticated: true
+        authenticated: true,
       };
     default: {
       return state;
     }
   }
 };
-

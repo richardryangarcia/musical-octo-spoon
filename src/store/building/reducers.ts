@@ -1,20 +1,20 @@
 import { Reducer } from "redux";
 import { BuildingActions, BuildingActionTypes } from "./actions";
-import { Room, Event, Hour } from '../../services/building';
+import { Room, Event, Hour } from "../../services/building";
 
 type BuildDetails = {
   rooms: Room[];
   events: Event[];
   hours: Hour[];
-}
+};
 
 type BuildingHash = {
-  [buildingId: number]: BuildDetails
-}
+  [buildingId: number]: BuildDetails;
+};
 
 export interface BuildingInitialState {
   loading: boolean;
-  details: BuildingHash
+  details: BuildingHash;
   error?: Error;
 }
 
@@ -44,16 +44,16 @@ export const buildingReducer: Reducer<BuildingInitialState, BuildingActions> = (
     case BuildingActionTypes.BUILDING_DETAILS_SUCCESS:
       let current = state.details;
 
-      if(action && action.payload && action.payload.rooms) {
+      if (action && action.payload && action.payload.rooms) {
         current = {
-            ...current,
-            [`${action.payload.rooms[0].buildingId}`]: action.payload
-        }
-    }
+          ...current,
+          [`${action.payload.rooms[0].buildingId}`]: action.payload,
+        };
+      }
       return {
         ...state,
         loading: false,
-        details: current
+        details: current,
       };
     default: {
       return state;

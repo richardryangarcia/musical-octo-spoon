@@ -15,9 +15,23 @@ export const AppRouter: React.FC = () => {
       <Router>
         <App>
           <Switch>
-            <Route exact path='/' render={() => <Redirect to='/my-bookings' />} />
-            <Route path='/my-bookings' component={MyBookings} key='my-bookings' exact />
-            <Route path='/schedule-bookings' component={ScheduleBookings} key='schedule-bookings' exact />
+            <Route
+              exact
+              path="/"
+              render={() => <Redirect to="/my-bookings" />}
+            />
+            <Route
+              path="/my-bookings"
+              component={MyBookings}
+              key="my-bookings"
+              exact
+            />
+            <Route
+              path="/schedule-bookings"
+              component={ScheduleBookings}
+              key="schedule-bookings"
+              exact
+            />
           </Switch>
         </App>
       </Router>

@@ -1,6 +1,6 @@
 import React from "react";
 import { Toast } from "react-bootstrap";
-import {NotificationType} from '../../store/notification/reducers';
+import { NotificationType } from "../../store/notification/reducers";
 
 type ToastNotificationProps = {
   id: string;
@@ -14,7 +14,7 @@ export const ToastNotification: React.FC<ToastNotificationProps> = ({
   id,
   message,
   removeToast,
-  type
+  type,
 }) => {
   return (
     <Toast

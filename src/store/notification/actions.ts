@@ -1,5 +1,9 @@
 import { Action, ActionCreator } from "redux";
-import { Notification, NotificationType, NotificationMessage } from "./reducers";
+import {
+  Notification,
+  NotificationType,
+  NotificationMessage,
+} from "./reducers";
 import shortid from "shortid";
 
 export enum ActionTypes {
@@ -17,20 +21,20 @@ interface removeNotificationAction extends Action {
   payload: { id: string };
 }
 
-export type NotificationActions = addNotificationAction | removeNotificationAction;
+export type NotificationActions =
+  | addNotificationAction
+  | removeNotificationAction;
 
-export const addNotification: ActionCreator<addNotificationAction> = (
-  payload: {
-    message: NotificationMessage;
-    type: NotificationType;
-  }
-) => {
+export const addNotification: ActionCreator<addNotificationAction> = (payload: {
+  message: NotificationMessage;
+  type: NotificationType;
+}) => {
   return {
     type: ActionTypes.ADD_NOTIFICATION,
     payload: {
       id: shortid.generate(),
       message: payload.message,
-      type: payload.type
+      type: payload.type,
     },
   };
 };

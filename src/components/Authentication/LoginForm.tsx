@@ -6,7 +6,10 @@ type LoginFormProps = {
   dispatchLogin: (params: any) => void;
 };
 
-export const LoginForm: React.FC<LoginFormProps> = ({ toggleForm, dispatchLogin }) => {
+export const LoginForm: React.FC<LoginFormProps> = ({
+  toggleForm,
+  dispatchLogin,
+}) => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
@@ -26,7 +29,9 @@ export const LoginForm: React.FC<LoginFormProps> = ({ toggleForm, dispatchLogin 
           value={email}
           onChange={(event) => {
             setEmail(
-              event.currentTarget.value ? event.currentTarget.value.toString() : ""
+              event.currentTarget.value
+                ? event.currentTarget.value.toString()
+                : ""
             );
           }}
         />
@@ -38,19 +43,17 @@ export const LoginForm: React.FC<LoginFormProps> = ({ toggleForm, dispatchLogin 
           value={password}
           onChange={(event) => {
             setPassword(
-              event.currentTarget.value ? event.currentTarget.value.toString() : ""
+              event.currentTarget.value
+                ? event.currentTarget.value.toString()
+                : ""
             );
           }}
         />
       </Form.Group>
-      <Button
-        className="submit-btn full-width"
-        variant="primary"
-        type="submit"
-      >
+      <Button className="submit-btn full-width" variant="primary" type="submit">
         Submit
       </Button>
-      <span className='md-text'>New here?{" "}</span>
+      <span className="md-text">New here? </span>
       <Button variant="link" onClick={() => toggleForm()}>
         Register
       </Button>

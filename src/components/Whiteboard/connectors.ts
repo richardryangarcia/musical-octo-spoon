@@ -1,9 +1,9 @@
-import { Connectors } from 'web3-react'
+import { Connectors } from "web3-react";
 
-const { InjectedConnector } = Connectors
+const { InjectedConnector } = Connectors;
 
-const MetaMask = new InjectedConnector({ supportedNetworks: [4] })
+const MetaMask = new InjectedConnector({ supportedNetworks: [4] });
 
-const connectors = { MetaMask }
+const connectors = { MetaMask };
 
-export default connectors
+export default connectors;

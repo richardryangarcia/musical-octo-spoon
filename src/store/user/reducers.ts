@@ -1,13 +1,12 @@
 import { Reducer } from "redux";
 import { User } from "../../services/user";
 import { UserActions, UserActionTypes } from "./actions";
-import { Building } from '../../services/user';
-
+import { Building } from "../../services/user";
 
 export interface UserInitialState {
   loading: boolean;
   details?: User;
-  buildings?: Building[]
+  buildings?: Building[];
   error?: Error;
 }
 
@@ -40,7 +39,7 @@ export const userReducer: Reducer<UserInitialState, UserActions> = (
         ...state,
         loading: false,
         details: action.payload.user,
-        buildings: action.payload.buildings
+        buildings: action.payload.buildings,
       };
     default: {
       return state;
