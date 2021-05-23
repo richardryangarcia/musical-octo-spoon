@@ -25,7 +25,7 @@ export const TimeSlotCard: React.FC<TimeSlotCardProps> = ({ booked, bookings,tim
           setSelectedStopTime(timeSlot.actualEndTime)
         } 
         }>
-            <Card.Body style={{textAlign: 'left', paddingLeft: '15%'}}>
+            <Card.Body className='Card-body'>
                     <b>Time:</b> {timeSlot.displayStartTime} <br/>
             </Card.Body>
         </Button>

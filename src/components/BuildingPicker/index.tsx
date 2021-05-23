@@ -11,15 +11,15 @@ type BuildingPickerProps = {
 
 export const BuildingPicker: React.FC<BuildingPickerProps> = ({buildings, selectedBuilding, setSelectedBuilding, fetchBuildingDetails}) => {
     const headerLabel = selectedBuilding ? `Building: ${selectedBuilding.name}` : "Choose Building"
-    const labelColor = selectedBuilding ? 'Green' : ""
+    const labelColor = selectedBuilding ? 'green' : ""
     return (
         <div>
-            <div style={{textAlign: 'left', color: `${labelColor}`}}>
+            <div className={`Picker-header color-${labelColor}`}>
                 <h3>{headerLabel}</h3>
             </div>
             {!selectedBuilding && buildings && (<div>
-                { buildings.map((building) => {
-                    return <BuildingCard  building={building} setSelectedBuilding={setSelectedBuilding} fetchBuildingDetails={fetchBuildingDetails}/>
+                { buildings.map((building, id) => {
+                    return <BuildingCard key={id} building={building} setSelectedBuilding={setSelectedBuilding} fetchBuildingDetails={fetchBuildingDetails}/>
                 })}
             </div>)}
         </div>

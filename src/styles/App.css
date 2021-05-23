@@ -36,3 +36,21 @@
     transform: rotate(360deg);
   }
 }
+
+.Auth-subtext {
+  font-size: 12px;
+  color: #d81e18;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.md-text {
+  font-size: 20px;
+}
+
+.jumbo-tron {
+  background-color: #17a2b8;
+  color: white;
+}

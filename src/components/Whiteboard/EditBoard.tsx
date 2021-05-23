@@ -12,7 +12,7 @@ export const EditBoard: React.FC<EditBoardProps> = ({updateWhiteboard, setShowCo
         updateWhiteboard(newContents);
       };
     return (
-        <div style={{marginTop:'20px'}}>
+        <div className='mrg-top'>
             <Form onSubmit={update}>
                 <Form.Group controlId="new-contents">
                     <Form.Control as="textarea" 
@@ -25,15 +25,14 @@ export const EditBoard: React.FC<EditBoardProps> = ({updateWhiteboard, setShowCo
                     />
                 </Form.Group>
                     <Button
-                        className="submit-btn"
-                        style={{ width:'100%' }}
+                        className="submit-btn full"
                         variant="primary"
                         type="submit"
                     >
                     Save
                 </Button>
             </Form>
-            <Button variant="secondary" style={{ width:'100%', marginTop:'10px' }} onClick={() => {setShowContents(true)}}>Cancel</Button>
+            <Button variant="secondary" className='full sm-mrg-top' onClick={() => {setShowContents(true)}}>Cancel</Button>
         </div>
     )
 }

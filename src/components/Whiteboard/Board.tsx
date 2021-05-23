@@ -35,12 +35,12 @@ export const Board: React.FC<BoardProps> = ({contract}) => {
     return (
       <div>
         {showContents && writing && (
-          <div style={{width: '100%', textAlign:'center'}}> 
+          <div className='center full'> 
             <Spinner animation="border" variant="light" size="sm" /> Saving on chain. This may take a minute.
           </div>
         )}
         {showContents && !writing &&  (
-          <div style={{marginTop:'20px'}}>
+          <div className='mrg-top'>
                 <Form.Group controlId="contents">
                     <Form.Control as="textarea" 
                         rows={3} 
@@ -49,7 +49,7 @@ export const Board: React.FC<BoardProps> = ({contract}) => {
                     />
                 </Form.Group>
                 Author: { boardContentsAuthor }
-             <div style={{textAlign:'center'}}> <Button style={{marginTop:'20px'}} onClick={() => {setShowContents(false)}}>Write on White Board</Button></div>
+             <div className='center'> <Button className='mrg-top' onClick={() => {setShowContents(false)}}>Write on White Board</Button></div>
           </div>
         )}
 

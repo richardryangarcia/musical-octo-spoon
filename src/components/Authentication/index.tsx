@@ -19,17 +19,25 @@ export const Authentication: React.FC<AuthenticationProps> = () => {
     const dispatchSignUp = (params: AuthenticateDto) => { dispatch(signUp(params)) }
 
     return (
-    <Card className="bg-light">
-        <Card.Header>Employee Conference Room Bookings</Card.Header>
-        <Card.Body>
+        <div>
+            <Card className="bg-light">
+                <Card.Header>Employee Conference Room Bookings</Card.Header>
+                <Card.Body>
 
-            <h2>{label}</h2>
+                    <h2>{label}</h2>
 
-            {signUpForm && <SignUpForm dispatchSignUp={dispatchSignUp} toggleForm={toggleForm}/>}
+                    {signUpForm && <SignUpForm dispatchSignUp={dispatchSignUp} toggleForm={toggleForm}/>}
 
-            {!signUpForm && <LoginForm dispatchLogin={dispatchLogin} toggleForm={toggleForm}/>}
+                    {!signUpForm && <LoginForm dispatchLogin={dispatchLogin} toggleForm={toggleForm}/>}
+                </Card.Body>
+            </Card>
+            <div className='Auth-subtext'>
+                Be sure to use an email with an @coke.com or @pepsi.com domain
+            </div>
 
-        </Card.Body>
-    </Card>
-  )
+            <div className='Auth-subtext'>
+                Test Credentials - email: user@pepsi.com password: pepsi
+            </div>
+        </div>
+    )
 }

@@ -5,6 +5,7 @@ import { BookingCard } from '../components/BookingCard';
 import { Header } from '../components/Jumbotron';
 import { useBookingState, useUserState } from '../store/hooks';
 import { userBooking, deleteBooking } from '../store/booking/actions';
+import '../styles/MyBookings.css';
 
 
 type MyBookingsProps = {}
@@ -28,11 +29,11 @@ export const MyBookings: React.FC<MyBookingsProps> = () => {
 
             <Container>
                 {bookings && bookings.userBookings.length == 0 && (
-                    <div style={{color: "#17a2b8"}}>You have no schedule bookings. Click Reserve a room to book a space.</div>
+                    <div className='info-text'>You have no schedule bookings. Click Reserve a room to book a space.</div>
                 )}
-                {bookings.userBookings.map((booking) => {
+                {bookings.userBookings.map((booking, id) => {
                     return (new Date(booking.stopTime) <  new Date(timeNow)) ? <div/> : (
-                        <BookingCard buildings={buildings} timeNow={timeNow} booking={booking} sendDeleteBooking={sendDeleteBooking}/>
+                        <BookingCard key={id} buildings={buildings} timeNow={timeNow} booking={booking} sendDeleteBooking={sendDeleteBooking}/>
                     )
                 })}
             </Container>

@@ -46,15 +46,14 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({ toggleForm, dispatchSign
         />
       </Form.Group>
       <Button
-        className="submit-btn"
-        style={{ width:'100%' }}
+        className="submit-btn full-width"
         variant="primary"
         type="submit"
       >
         Submit
       </Button>
       
-      <span style={{fontSize:'20px'}}>Already have a account?{" "}</span>
+      <span className='md-text'>Already have a account?{" "}</span>
       <Button variant="link" onClick={() => toggleForm()}>
         Log In
       </Button>

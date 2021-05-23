@@ -17,7 +17,7 @@ type RoomPickerProps = {
 
 export const RoomPicker: React.FC<RoomPickerProps> = ({userRoleIds, rooms, events, selectedRoom, setSelectedRoom, fetchRoomBookings, selectedDate}) => {
     const headerLabel = selectedRoom ? `Room: ${selectedRoom.name}` : "Choose Room"
-    const labelColor = selectedRoom ? 'Green' : ""
+    const labelColor = selectedRoom ? 'green' : ""
 
     const userCanAccess = (userRoleIds: number[], primaryRoleId: number) => {
         let allowed = false;
@@ -39,14 +39,14 @@ export const RoomPicker: React.FC<RoomPickerProps> = ({userRoleIds, rooms, event
 
     return (
         <div>
-            <div style={{textAlign: 'left', color: `${labelColor}`}}>
+            <div className={`Picker-header color-${labelColor}`}>
                 <h3>{headerLabel}</h3>
             </div>
             {!selectedRoom && rooms && (<div>
-                {  rooms.map((room) => {
+                {  rooms.map((room, id) => {
                     const isUserAllowed = userCanAccess(userRoleIds, room.primaryRoleId)
-                    {return !isUserAllowed ? <div/> : (
-                        <RoomCard  room={room} setSelectedRoom={setSelectedRoom} fetchRoomBookings={fetchRoomBookings} selectedDate={selectedDate}/>
+                    {return !isUserAllowed ? <div key={id}/> : (
+                        <RoomCard key={id} room={room} setSelectedRoom={setSelectedRoom} fetchRoomBookings={fetchRoomBookings} selectedDate={selectedDate}/>
                     )}
                 })}
             </div>)}

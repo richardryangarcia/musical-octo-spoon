@@ -12,7 +12,7 @@ export const DateSelector: React.FC<DateSelectorProps> = ({selectedDate, ensureD
   return (
       <div>
             <DatePicker selected={selectedDate} onChange={(date) => ensureDateAndSetSelected(date)} />
-            <div style={{textAlign: 'left', color: 'green'}}>
+            <div className='Picker-header color-green'>
                 <h3>{label}</h3>
             </div>
       </div>

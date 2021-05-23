@@ -50,33 +50,33 @@ export const TimeSlotPicker: React.FC<TimeSlotPickerProps> = ({
     
     return (
         <div>
-            <div style={{textAlign: 'left', color: labelColor}}>
+            <div className={`Picker-header color-${labelColor}`}>
                 <h3>{headerLabel}</h3>
             </div>
 
             {selectedRoom && selectedStartTime && selectedStopTime && (
-                    <div style={{marginBottom: '15px'}}>
-                        <Button variant="light" style={{marginRight: '10px'}} onClick={() => resetForm()}>Cancel</Button>
+                    <div className='mrg-btm'>
+                        <Button variant="light" className='mrg-right' onClick={() => resetForm()}>Cancel</Button>
                         <Button variant="primary" onClick={() => saveBooking()}>Save</Button>
                     </div>
                 )}
 
             {(dayOfWeek?.openTime === null || dayOfWeek?.closeTime == null) && (
-                <div style={{color: 'red'}}>Office Building closed on this day, try a different date</div>
+                <div className='alert'>Office Building closed on this day, try a different date</div>
             )}
 
             { timeSlots && (<div>
-                {  timeSlots.map((timeSlot) => {
+                {  timeSlots.map((timeSlot, id) => {
                     const formattedStart = formatDateTime(timeSlot.actualStartTime)
                     const formattedStop = formatDateTime(timeSlot.actualEndTime)
                     const booked = isSlotBooked(formattedStart, formattedStop)
 
-                    return <TimeSlotCard booked={booked} bookings={bookings} timeSlot={timeSlot} setSelectedStartTime={setSelectedStartTime} setSelectedStopTime={setSelectedStopTime} />
+                    return <TimeSlotCard key={id} booked={booked} bookings={bookings} timeSlot={timeSlot} setSelectedStartTime={setSelectedStartTime} setSelectedStopTime={setSelectedStopTime} />
                 })}
             </div>)}
 
             {timeSlots && timeSlots.length === 0 && (
-                <div style={{color: 'red'}}>Sorry! No more bookings left for this date :( </div>
+                <div className='alert'>Sorry! No more bookings left for this date :( </div>
             )}
         </div>
     )

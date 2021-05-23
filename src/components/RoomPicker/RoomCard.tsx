@@ -21,7 +21,7 @@ export const RoomCard: React.FC<RoomCardProps> = ({room, setSelectedRoom, fetchR
           setSelectedRoom(room)
           fetchRoomBookings(room.id, selectedDate) } 
         }>
-            <Card.Body style={{textAlign: 'left', paddingLeft: '15%'}}>
+            <Card.Body className='Card-body'>
                     <b>Name:</b> {room.name} <br/>
             </Card.Body>
         </Button>

@@ -44,14 +44,13 @@ export const LoginForm: React.FC<LoginFormProps> = ({ toggleForm, dispatchLogin 
         />
       </Form.Group>
       <Button
-        className="submit-btn"
-        style={{ width:'100%' }}
+        className="submit-btn full-width"
         variant="primary"
         type="submit"
       >
         Submit
       </Button>
-      <span style={{fontSize:'20px'}}>New here?{" "}</span>
+      <span className='md-text'>New here?{" "}</span>
       <Button variant="link" onClick={() => toggleForm()}>
         Register
       </Button>

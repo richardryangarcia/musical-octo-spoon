@@ -21,7 +21,7 @@ export const BuildingCard: React.FC<BuildingCardProps> = ({building, setSelected
           fetchBuildingDetails(building.id) 
         } 
         }>
-            <Card.Body style={{textAlign: 'left', paddingLeft: '15%'}}>
+            <Card.Body className='Card-body'>
                     <b>Name:</b> {building.name} <br/>
             </Card.Body>
         </Button>

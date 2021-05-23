@@ -14,6 +14,7 @@ import { RoomPicker } from '../components/RoomPicker';
 import {Room} from '../services/building';
 import { roomBooking } from '../store/booking/actions';
 import { TimeSlotPicker } from '../components/TimeSlotPicker';
+import '../styles/ScheduleBookings.css';
 
 type ScheduleBookingsProps = {}
 
