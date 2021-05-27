@@ -2,7 +2,7 @@
 
 React application for booking conference rooms 
 
-Demo app: http://320a9b36d978.ngrok.io
+Demo app: http://d3a511e3aafc.ngrok.io
 
 ## Install Dependencies
 
