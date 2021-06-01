@@ -2,8 +2,6 @@
 
 React application for booking conference rooms 
 
-Demo app: http://d3a511e3aafc.ngrok.io
-
 ## Install Dependencies
 
 ```bash
