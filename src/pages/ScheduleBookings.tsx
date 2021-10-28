@@ -74,6 +74,8 @@ export const ScheduleBookings: React.FC<ScheduleBookingsProps> = () => {
   };
 
   const ensureDateAndSetSelected = (arg: Date | [Date, Date] | null) => {
+    console.log("in date picker");
+    console.log(arg);
     if (arg instanceof Date && dateNotInThePast(arg, timeNow)) {
       setSelectedDate(arg);
     }
